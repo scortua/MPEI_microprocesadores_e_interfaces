@@ -94,3 +94,5 @@ void __attribute__((__interrupt__)) _U1TXInterrupt(void) {
     U1TXREG = '\n';// Transmit a end line
     while(!U1STAbits.TRMT);
 }
+
+//Monda pa su jopo mko
