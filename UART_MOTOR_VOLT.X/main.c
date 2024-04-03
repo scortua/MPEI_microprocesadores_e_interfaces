@@ -23,13 +23,13 @@
 void ADC_conf();
 void adquirir();
 void UART_conf();
-void __attribute__((interrupt, auto_psv)) _U1TXInterrupt(void);
+void transmitir();;
 void __attribute__((interrupt, auto_psv)) _U1RXInterrupt(void);
 void motor(int);
 
 int estado = 0;
 int lectura = 0;
-float TIME = 0.1;
+float TIME = 0.01;
 
 int main(void) {
     AD1PCFGL = 0xFFFB; // 1111 1111 1111 1011
@@ -40,6 +40,7 @@ int main(void) {
     ADC_conf();
     UART_conf();
     while (1) {
+        transmitir();
         motor(estado);
     }
     return 0;
@@ -53,9 +54,7 @@ void UART_conf() {
 
     U1BRG = BRGVAL; // Baud Rate setting for monda
 
-    U1STAbits.UTXISEL0 = 0; // Interrupt after one TX character is transmitted
     U1STAbits.UTXISEL1 = 0; // Interrupt after one RX character is received   
-    IEC0bits.U1TXIE = 1; // Enable UART TX interrupt
     IEC0bits.U1RXIE = 1; // Enable UART RX interrupt
 
     IPC3bits.U1TXIP = 5; // Set the transmition priority in 5 Lower than Reception 
@@ -85,7 +84,7 @@ void adquirir() {
     while (!AD1CON1bits.DONE);
 }
 
-void __attribute__((interrupt, auto_psv)) _U1TXInterrupt(void) {
+void transmitir() {
     
     adquirir();
     lectura = ADCBUF0 >> 2;
@@ -105,7 +104,7 @@ void __attribute__((interrupt, auto_psv)) _U1TXInterrupt(void) {
     while (!U1STAbits.TRMT);
     U1TXREG = '\n'; // Transmit a end line
     while (!U1STAbits.TRMT);
-    IFS0bits.U1TXIF = 0; // Clear TX Interrupt flag
+    
 }
 
 void __attribute__((interrupt, auto_psv)) _U1RXInterrupt(void) {
