@@ -79,7 +79,7 @@ void ADC_conf() {
 
 void adquirir() {
     AD1CON1bits.SAMP = 1;
-    __delay_ms(20);
+    __delay_us(10);
     AD1CON1bits.SAMP = 0;
     while (!AD1CON1bits.DONE);
 }
@@ -104,6 +104,7 @@ void transmitir() {
     while (!U1STAbits.TRMT);
     U1TXREG = '\n'; // Transmit a end line
     while (!U1STAbits.TRMT);
+    __delay_ms(20);
     
 }
 
