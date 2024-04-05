@@ -1,5 +1,6 @@
 # MPEI-LAS-AMIGAS
 # Repositorio de Trabajos de MPEI y Microprocesadores e Interfaces
+![2560px-Microchip-Logo svg](https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/5c3d58c1-fcc4-4eae-a299-d507adad1c6b)
 
 Este repositorio contiene trabajos, proyectos y ejercicios relacionados con la asignatura de Métodos Probabilísticos para la Ingeniería Informática (MPEI) y el desarrollo de sistemas embebidos utilizando microprocesadores e interfaces.
 
