@@ -175,7 +175,7 @@ Se implementa un ejemplo de visualizador dinámico para el micro, sin necesidad 
 Se muestra en proyectos la forma de configurar la uart para transmitir y recivir datos, para esto se debe usar un driver que permita de serial a uart.
 
 <div style="text-align:center;">
-    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/raw/main/assets/140832465/f0fde879-0b51-4d76-b3a3-a39353b640a6" alt="Captura de pantalla 2024-04-05 191415" style="max-width: 200px;"/>
+    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/raw/main/assets/140832465/9f53491b-75e8-4ac8-963d-ca5afcccd487" alt="Captura de pantalla 2024-04-05 191415" style="max-width: 300px;"/>
 </div>
 
 ```c
