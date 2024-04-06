@@ -77,6 +77,7 @@ Se usan las tablas del datasheet para reprogramar pines.
 <div style="text-align:center;">
     <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/6c296bfa-ccc0-43f7-b857-99be30bfcb73" alt="Captura de pantalla 2024-04-05 173517" style="max-width: 500px;"/>
 </div>
+
 ######  Tabla para configuración de salida.
 
 ##### MOTOR_PASO
@@ -96,4 +97,107 @@ void __attribute__((interrupt, auto_psv)) _INT0Interrupt(void) {
 
 ##### CALCULATOR
 
-A partir de un teclado de matriz se hace una acción en el micro.
+A partir de un teclado de matriz se hace una acción matematica:
+
+  > { '1', '2', '3', 'A' },
+    { '4', '5', '6', 'B' },
+    { '7', '8', '9', 'C' },
+    { '*', '0', '#', 'D' }
+
+```c
+int calcular(int a, int b, int operacion) {
+    switch (operacion) {
+        case 10: // es suma
+            return a + b;
+        case 11: // es resta
+            return a - b;
+        case 12: // es multiplicacion
+            return a * b;
+        case 13: // es divicion
+            if (b != 0) {
+                return a / b;
+            } else {
+                // Manejar el error de división por cero
+                return 0;
+            }
+        default:
+            // Manejar el caso de operación no válida
+            return 0;
+    }
+}
+```
+##### CONVERSORES ADC
+
+Se implementa y configura el conversor análogo digital para adquirir una variación de voltaje.
+
+>Configure el módulo ADC:
+1. Seleccione los pines del puerto como entradas analógicas (AD1PCFGH<15:0> ο AD1PCFGL<15:0>).
+2. Seleccione la fuente de referencia de voltaje para que coincida rango esperado en entradas analógicas (AD1CON2<15:13>)
+3. Seleccione el reloj de conversión analógica para hacer coincidir la velocidad de datos deseada con el procesador reloj (AD1CON3<7:0>)
+4. Determinar cuántos canales S/H se utilizan (AD1CON2<9:8> y AD1PCFGH<15:0> ó AD1PCFGL<15:0>)
+5. Seleccionar la muestra/conversión adecuada secuencia (AD1CON1<7:5> y AD1CON3<12:8>)
+6. Seleccionar cómo son los resultados de conversión presentado en el búfer (AD1CON1<9:8>)
+7. Encienda el módulo ADC (AD1CON1<15>)
+
+Se configura el ADC con una función para generalizar con cada registro que indica el datasheet.
+```c
+void ADC_configuration() {
+    AD1CON1 = 0x0000;
+    AD1CON2 = 0X0000;
+    AD1CON3 = 0x8000;
+    AD1CSSL = 0;
+    AD1CHS0 = 0x0000;
+    AD1CON1bits.ADON = 1;
+    AD1CHS0bits.CH0SA = 2;
+     AD1CHS0bits.CH0SB = 2;
+}
+```
+
+Se configura la adquisición de la variación de voltaje que obtiene el PIN AN del micro.
+```c
+void adquirir_AD() {
+    AD1CON1bits.SAMP = 1;
+    __delay_ms(1);
+    AD1CON1bits.SAMP = 0;
+    while (!AD1CON1bits.DONE);
+    lectura = ADCBUF0; // >> 2; lectura es el voltaje medido
+    // lectura = lectura & (0x03FF); es inecesario
+    __delay_ms(1);
+}
+```
+
+##### VISUALIZACIÓN DINÁMICA
+
+Se implementa un ejemplo de visualizador dinámico para el micro, sin necesidad de decodificador con 2 displays 7 segmentos.
+
+##### UART (universal asynchronous receiver / transmitter)
+
+Se muestra en proyectos la forma de configurar la uart para transmitir y recivir datos, para esto se debe usar un driver que permita de serial a uart.
+
+<div style="text-align:center;">
+    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/raw/main/assets/140832465/f0fde879-0b51-4d76-b3a3-a39353b640a6" alt="Captura de pantalla 2024-04-05 191415" style="max-width: 200px;"/>
+</div>
+
+```c
+void UART_conf() {
+    U1MODEbits.STSEL = 0; // 1-Stop bit        
+    U1MODEbits.PDSEL = 0; // No Parity, 8-Data bits
+    U1MODEbits.ABAUD = 0; // Auto-Baud disabled
+    U1MODEbits.BRGH = 0; // Standard-Speed mode
+
+    U1BRG = BRGVAL; // Baud Rate setting for monda
+
+    U1STAbits.UTXISEL1 = 0; // Interrupt after one RX character is received   
+    IEC0bits.U1RXIE = 1; // Enable UART RX interrupt
+
+    IPC3bits.U1TXIP = 5; // Set the transmition priority in 5 Lower than Reception 
+    IPC2bits.U1RXIP = 6; // Set the reception priority in 6 Higher than Transmition
+
+    U1MODEbits.UARTEN = 1; // Enable UART
+    U1STAbits.UTXEN = 1; // Enable Transmition UART    
+}
+```
+
+Aquí se expecifica de igual manera la forma en que se debe configurar la uart en transmición y en recepción.
+
+
