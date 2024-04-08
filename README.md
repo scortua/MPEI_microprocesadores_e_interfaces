@@ -16,10 +16,10 @@ El sistema embebido al que se refiere este repositorio se centra en el uso del m
 >El repositorio está organizado en las siguientes secciones:
 
 >1. **Tareas de MPEI**: Ejercicios y problemas asignados como tarea en clase relacionados con Métodos Probabilísticos para la Ingeniería Informática.
-2. **Proyectos de Microprocesadores e Interfaces**: Proyectos relacionados con el desarrollo de sistemas embebidos utilizando el microcontrolador dsPIC33FJ128MC802 y sus interfaces.
-3. **Ejemplos de Código**: Ejemplos de código para entender el funcionamiento del microcontrolador y sus periféricos.
-4. **Documentación**: Documentación técnica, manuales y notas de clase relacionadas con MPEI y el desarrollo de sistemas embebidos.
-5. **Recursos**: Enlaces útiles, bibliografía recomendada y material adicional para profundizar en los temas tratados.
+>2. **Proyectos de Microprocesadores e Interfaces**: Proyectos relacionados con el desarrollo de sistemas embebidos utilizando el microcontrolador dsPIC33FJ128MC802 y sus interfaces.
+>3. **Ejemplos de Código**: Ejemplos de código para entender el funcionamiento del microcontrolador y sus periféricos.
+>4. **Documentación**: Documentación técnica, manuales y notas de clase relacionadas con MPEI y el desarrollo de sistemas embebidos.
+>5. **Recursos**: Enlaces útiles, bibliografía recomendada y material adicional para profundizar en los temas tratados.
 
 ## DSPIC33FJ128MC802 
 
