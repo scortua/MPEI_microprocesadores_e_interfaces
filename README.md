@@ -69,13 +69,13 @@ Se usan las tablas del datasheet para reprogramar pines.
 > lo anterior es un ejemplo, pero para hacer la reprogramación de pines se necesita de la siguientes tablas.
 
 <div style="text-align:center;">
-    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/98bf405c-71cc-445c-aef9-73449652c5e0" alt="Captura de pantalla 2024-04-05 172850" style="max-width: 500px;"/>
+    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/98bf405c-71cc-445c-aef9-73449652c5e0" alt="tabla conf in" style="max-width: 500px;"/>
 </div>
 
 ###### Tabla para configuración de entrada.
 
 <div style="text-align:center;">
-    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/6c296bfa-ccc0-43f7-b857-99be30bfcb73" alt="Captura de pantalla 2024-04-05 173517" style="max-width: 500px;"/>
+    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/6c296bfa-ccc0-43f7-b857-99be30bfcb73" alt="tabla conf out" style="max-width: 500px;"/>
 </div>
 
 ######  Tabla para configuración de salida.
@@ -131,7 +131,9 @@ int calcular(int a, int b, int operacion) {
 Se implementa y configura el conversor análogo digital para adquirir una variación de voltaje.
 Este microcontrolador tiene 6 entradas analógicas (AN0-AN5).
 
-
+<div style="text-align:center;">
+    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/raw/main/assets/140832465/3c52c02d-bd1b-43f2-8e00-2480cda6bba2" alt="LC SAR ADC" style="max-width: 500px;"/>
+</div>
 
 Ahora, El SAR o sucessive aproximation register, es el responsable de identificar el valor de la señal de entrada analogica.
 La señal analógica de entrada (Vin) se muestrea y se mantiene a un valor constante. Esto se hace mediante un circuito de muestreo y retención (S/H).
@@ -142,8 +144,6 @@ El proceso de comparación y desplazamiento continúa hasta que el valor en el r
 El valor final en el registro SAR es la representación digital de la señal analógica de entrada.
 
 El conversor análogo-digital tiene como formatos de salida: con/sin signo fraccional y entero.
-
-![Captura de pantalla 2024-04-09 213809](https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/3c52c02d-bd1b-43f2-8e00-2480cda6bba2)
 
 >Configure el módulo ADC:
 1. Seleccione los pines del puerto como entradas analógicas (AD1PCFGH<15:0> ο AD1PCFGL<15:0>).
@@ -204,10 +204,10 @@ La linea **while (!AD1CON1bits.DONE);**, especifica que se esta esperando a que 
 Tambien se destaca que se puede usar voltajes externos como referencia cambiando los valores del registro VCFG del control 2 del ADC.
 
 <div style="text-align:center;">
-    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/raw/main/assets/140832465/f7bb3e08-15c8-47e9-a2b3-6c807cc9af55" alt="Descripción de la imagen" style="max-width: 200px;"/>
+    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/raw/main/assets/140832465/67f1dc10-65d9-4821-9bdc-cb678b4fcf98" alt="Tabla voltajes ref" style="max-width: 500px;"/>
 </div>
 
-Además, se permite hacer un muestreo de datos por medio de 4 canales. Esto quiere decir que se puede hacer la conversión simultanea para 4 entradas analógica, dando la señal de salida en los registros respectivos de AD1BUFX.
+Además, se permite hacer un muestreo de datos por medio de 4 canales. Esto quiere decir que se puede hacer la conversión simultanea para 4 entradas analógica, dando la señal de salida en los registros respectivos de AD1BUFX de 12 o 10 bits dependiendo la configuración.
 
 ##### VISUALIZACIÓN DINÁMICA
 
@@ -215,25 +215,49 @@ Se implementa un ejemplo de visualizador dinámico para el micro, sin necesidad 
 
 ##### UART (universal asynchronous receiver / transmitter)
 
-Se muestra en proyectos la forma de configurar la uart para transmitir y recivir datos, para esto se debe usar un driver que permita de serial a uart.
+La UART funciona en un modo asíncrono, lo que significa que no hay un reloj de sincronización compartido entre el transmisor y el receptor. En su lugar, los datos se envían en serie, bit por bit, junto con una señal de inicio y posiblemente una señal de parada para delimitar cada byte de datos. La velocidad de transmisión de datos, conocida como baud rate, se configura para asegurar que el receptor pueda interpretar correctamente los bits recibidos.
+
+La UART consta de dos partes principales: el transmisor y el receptor. El transmisor toma datos paralelos desde el microcontrolador y los convierte en una secuencia serial de bits que se envían a través de un solo cable. El receptor, por otro lado, toma la secuencia de bits serial recibida a través del cable y la convierte de nuevo en datos paralelos que pueden ser utilizados por el microcontrolador.
+
+<div style="text-align:center;">
+    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/raw/main/assets/140832465/32d931fd-6c1d-4ab7-abae-2988d97e1f09" alt="tramo de datos" style="max-width: 500px;"/>
+</div>
+
+Se utiliza un conversor usb-serial (ft232). Y por ende se especifica el uso de baudios(bps) que describe la velocidad de transmición de datos.
+
+<div style="text-align:center;">
+    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/raw/main/assets/140832465/c36d13b4-5520-457c-a8c1-614f4504f144" alt="Captura de pantalla 2024-04-09 222518" style="max-width: 200px;"/>
+</div>
+
+>configuración del modulo UART
+1. Inicializar el registro UxBRG un valor de baudio apropiado.
+2. Colocar tamaño del dato UxMODEbits.PDSEL, colocar cantidad bits de stop UxMODEbits.STSEL.
+3. Colocar de ser haci la interrupción IEC0bits.U1XTXIE 0 para clarearla y 1 para iniciarla.
+4. Especificar la prioridad de la interrupción IPC0.U1TXIP.
+5. activar uart UxMODEbits.UARTEN.
+6. activar la trnasmicion UxMODEbits.UTXEN
 
 ```c
 void UART_conf() {
-    U1MODEbits.STSEL = 0; // 1-Stop bit        
-    U1MODEbits.PDSEL = 0; // No Parity, 8-Data bits
-    U1MODEbits.ABAUD = 0; // Auto-Baud disabled
-    U1MODEbits.BRGH = 0; // Standard-Speed mode
-
-    U1BRG = BRGVAL; // Baud Rate setting for monda
-
-    U1STAbits.UTXISEL1 = 0; // Interrupt after one RX character is received   
-    IEC0bits.U1RXIE = 1; // Enable UART RX interrupt
-
-    IPC3bits.U1TXIP = 5; // Set the transmition priority in 5 Lower than Reception 
-    IPC2bits.U1RXIP = 6; // Set the reception priority in 6 Higher than Transmition
-
-    U1MODEbits.UARTEN = 1; // Enable UART
-    U1STAbits.UTXEN = 1; // Enable Transmition UART    
+    // Se configuran los registros del módulo UART
+    // U1MODE: Registro de modo del módulo UART
+    U1MODEbits.STSEL = 0; // Selecciona 1 bit de parada
+    U1MODEbits.PDSEL = 0; // Configura sin paridad y 8 bits de datos
+    U1MODEbits.ABAUD = 0; // Deshabilita el modo de detección automática de baud rate
+    U1MODEbits.BRGH = 0; // Establece el modo de velocidad estándar
+    // U1BRG: Registro de generador de baud rate del módulo UART
+    U1BRG = BRGVAL; // Establece el valor del generador de baud rate para la velocidad deseada
+    // U1STAbits: Registro de estado del módulo UART
+    U1STAbits.UTXISEL1 = 0; // Interrupción después de recibir un carácter RX
+    // IEC0bits: Registro de habilitación de interrupciones del módulo UART
+    IEC0bits.U1RXIE = 1; // Habilita la interrupción de recepción UART
+    // IPC3bits: Registro de prioridad de interrupción de transmisión del módulo UART
+    IPC3bits.U1TXIP = 5; // Establece la prioridad de interrupción de transmisión (menor que la de recepción)
+    // IPC2bits: Registro de prioridad de interrupción de recepción del módulo UART
+    IPC2bits.U1RXIP = 6; // Establece la prioridad de interrupción de recepción (mayor que la de transmisión)
+    // Se activa el módulo UART y se habilita la transmisión
+    U1MODEbits.UARTEN = 1;
+    U1STAbits.UTXEN = 1;
 }
 ```
 
