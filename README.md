@@ -131,9 +131,7 @@ int calcular(int a, int b, int operacion) {
 Se implementa y configura el conversor análogo digital para adquirir una variación de voltaje.
 Este microcontrolador tiene 6 entradas analógicas (AN0-AN5).
 
-<div style="text-align:center;">
-    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/raw/main/assets/140832465/3c52c02d-bd1b-43f2-8e00-2480cda6bba2" alt="LC SAR ADC" style="max-width: 500px;"/>
-</div>
+![Captura de pantalla 2024-04-09 230901](https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/7daa516f-7b4c-4508-b462-3f04c6aa86a7)
 
 Ahora, El SAR o sucessive aproximation register, es el responsable de identificar el valor de la señal de entrada analogica.
 La señal analógica de entrada (Vin) se muestrea y se mantiene a un valor constante. Esto se hace mediante un circuito de muestreo y retención (S/H).
@@ -203,9 +201,7 @@ void adquirir_AD() {
 La linea **while (!AD1CON1bits.DONE);**, especifica que se esta esperando a que termine de hacer el proceso de conversión para seguir con el siguiente proceso.
 Tambien se destaca que se puede usar voltajes externos como referencia cambiando los valores del registro VCFG del control 2 del ADC.
 
-<div style="text-align:center;">
-    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/raw/main/assets/140832465/67f1dc10-65d9-4821-9bdc-cb678b4fcf98" alt="Tabla voltajes ref" style="max-width: 500px;"/>
-</div>
+![Captura de pantalla 2024-04-09 230830](https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/79b0835d-a41c-4327-baa8-d7d5c70b994e)
 
 Además, se permite hacer un muestreo de datos por medio de 4 canales. Esto quiere decir que se puede hacer la conversión simultanea para 4 entradas analógica, dando la señal de salida en los registros respectivos de AD1BUFX de 12 o 10 bits dependiendo la configuración.
 
@@ -219,15 +215,11 @@ La UART funciona en un modo asíncrono, lo que significa que no hay un reloj de 
 
 La UART consta de dos partes principales: el transmisor y el receptor. El transmisor toma datos paralelos desde el microcontrolador y los convierte en una secuencia serial de bits que se envían a través de un solo cable. El receptor, por otro lado, toma la secuencia de bits serial recibida a través del cable y la convierte de nuevo en datos paralelos que pueden ser utilizados por el microcontrolador.
 
-<div style="text-align:center;">
-    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/raw/main/assets/140832465/32d931fd-6c1d-4ab7-abae-2988d97e1f09" alt="tramo de datos" style="max-width: 500px;"/>
-</div>
+![Captura de pantalla 2024-04-09 230731](https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/36fb7707-b398-4d2d-a26b-f480f4ef1f2b)
 
 Se utiliza un conversor usb-serial (ft232). Y por ende se especifica el uso de baudios(bps) que describe la velocidad de transmición de datos.
 
-<div style="text-align:center;">
-    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/raw/main/assets/140832465/c36d13b4-5520-457c-a8c1-614f4504f144" alt="Captura de pantalla 2024-04-09 222518" style="max-width: 200px;"/>
-</div>
+![Captura de pantalla 2024-04-09 222518](https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/e3722ef8-6ee8-46f0-866e-527576555a4d)
 
 >configuración del modulo UART
 1. Inicializar el registro UxBRG un valor de baudio apropiado.
@@ -268,9 +260,8 @@ Aquí se expecifica de igual manera la forma en que se debe configurar la uart e
 Es un contador y/o temporizador por flancos de reloj o de tiempo de instrucción.
 Existen 4 tipos (temporizador, comparador, contador sincrono y asincrono).
 
-<div style="text-align:center;">
-    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/raw/main/assets/140832465/5a22081a-8420-4d6a-b26f-c2eb104c0f83" alt="Captura de pantalla 2024-04-09 225309" style="max-width: 500px;"/>
-</div>
+![Captura de pantalla 2024-04-09 225309](https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/d541c3d6-0a47-4f52-b394-f0a5f4c1f59c)
+
 >Configuración del Timer.
 1. Decidimos que timer usar // 5 timers // 1 2/3 4/5
 2. Decidimos si es de 16 o 32 bits
@@ -302,4 +293,3 @@ void conf_timer() {
 
 >Entonces si fuera un reloj, si es de 16 bits:
 > FCY/2 * 2^16 * prescaler = Tiempo total en segundos.
-![Uploading Captura de pantalla 2024-04-09 230058.png…]()
