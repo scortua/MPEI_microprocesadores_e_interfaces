@@ -295,13 +295,11 @@ void conf_timer() {
 }
 ```
 
-<div style="text-align:center;">
-    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/raw/main/assets/140832465/8f47b767-f9fa-4ed7-8949-669be0a7ec62" alt="Captura de pantalla 2024-04-09 230058" style="max-width: 500px;"/>
-</div>
+![Captura de pantalla 2024-04-09 230058](https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/f7213a96-808e-4a99-a1f2-e15e4d843f13)
 
-<div style="text-align:center;">
-    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/raw/main/assets/140832465/e8e58011-63dc-408d-a08d-de8e81ae4174" alt="Captura de pantalla 2024-04-09 230214" style="max-width: 500px;"/>
-</div>
+![Captura de pantalla 2024-04-09 230214](https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/d657c67d-48f1-43d7-a4bc-a312a5bb0301)
+
 
 >Entonces si fuera un reloj, si es de 16 bits:
 > FCY/2 * 2^16 * prescaler = Tiempo total en segundos.
+![Uploading Captura de pantalla 2024-04-09 230058.png…]()
