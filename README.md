@@ -85,7 +85,7 @@ Se usan las tablas del datasheet para reprogramar pines.
 Aqui entra el uso de las interrupciones.
 
 ```c
-	 IFS0bits.INT0IF = 0; // clarear interrupción
+    IFS0bits.INT0IF = 0; // clarear interrupción
     IEC0bits.INT0IE = 1; // activar interrupción
 	
 void __attribute__((interrupt, auto_psv)) _INT0Interrupt(void) {
@@ -100,9 +100,9 @@ void __attribute__((interrupt, auto_psv)) _INT0Interrupt(void) {
 A partir de un teclado de matriz se hace una acción matematica:
 
   > { '1', '2', '3', 'A' },
-    { '4', '5', '6', 'B' },
-    { '7', '8', '9', 'C' },
-    { '*', '0', '#', 'D' }
+  > { '4', '5', '6', 'B' },
+  > { '7', '8', '9', 'C' },
+  > { '*', '0', '#', 'D' }
 
 ```c
 int calcular(int a, int b, int operacion) {
@@ -129,6 +129,21 @@ int calcular(int a, int b, int operacion) {
 ##### CONVERSORES ADC
 
 Se implementa y configura el conversor análogo digital para adquirir una variación de voltaje.
+Este microcontrolador tiene 6 entradas analógicas (AN0-AN5).
+
+<div style="text-align:center;">
+    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/raw/main/assets/140832465/45a35b31-8251-4053-96bc-685a0094290e" alt="Descripción de la imagen" style="max-width: 500px;"/>
+</div>
+
+Ahora, El SAR o sucessive aproximation register, es el responsable de identificar el valor de la señal de entrada analogica.
+La señal analógica de entrada (Vin) se muestrea y se mantiene a un valor constante. Esto se hace mediante un circuito de muestreo y retención (S/H).
+Un convertidor digital-analógico (DAC) interno genera una señal analógica que se compara con la señal de entrada muestreada.
+Un comparador determina si la señal del DAC es mayor o menor que la señal de entrada.
+El resultado de la comparación se utiliza para controlar un registro de aproximaciones sucesivas (SAR). El registro SAR se desplaza un bit a la derecha en cada ciclo de comparación.
+El proceso de comparación y desplazamiento continúa hasta que el valor en el registro SAR sea igual o mayor que la señal de entrada.
+El valor final en el registro SAR es la representación digital de la señal analógica de entrada.
+
+El conversor análogo-digital tiene como formatos de salida: con/sin signo fraccional y entero.
 
 >Configure el módulo ADC:
 1. Seleccione los pines del puerto como entradas analógicas (AD1PCFGH<15:0> ο AD1PCFGL<15:0>).
@@ -141,30 +156,58 @@ Se implementa y configura el conversor análogo digital para adquirir una variac
 
 Se configura el ADC con una función para generalizar con cada registro que indica el datasheet.
 ```c
-void ADC_configuration() {
-    AD1CON1 = 0x0000;
-    AD1CON2 = 0X0000;
-    AD1CON3 = 0x8000;
-    AD1CSSL = 0;
-    AD1CHS0 = 0x0000;
+void ADC_conf (){
+    // Se establecen los registros de control del conversor ADC
+    // AD1CON1: Registro de control 1 del ADC
+    AD1CON1 = 0X0000;	// Se limpian todos los bits del registro para configurarlos según sea necesario
+    // AD1CON2: Registro de control 2 del ADC
+    AD1CON2 = 0;    	// Se limpian todos los bits del registro
+    // AD1CON3: Registro de control 3 del ADC
+    AD1CON3 = 0X0000;   // Se limpian todos los bits del registro
+    // AD1CSSL: Registro de selección de entrada analógica escaneada
+    AD1CSSL = 0;    	// Se establecen todos los bits en 0 para omitir el escaneo de las entradas analógicas
+    // AD1CHS0: Registro de selección de canal de entrada analógica
+    AD1CHS0 = 0X0000;   // Se limpian todos los bits del registro
+    // Se activa el módulo ADC para que pueda operar
     AD1CON1bits.ADON = 1;
+    // Se configura el módulo ADC para utilizar el reloj interno RC para la conversión
+    AD1CON3bits.ADRC = 1;
+    // Se selecciona el canal de entrada positivo AN2 para el canal 0 del ADC
     AD1CHS0bits.CH0SA = 2;
-     AD1CHS0bits.CH0SB = 2;
+    // Se selecciona el canal de entrada positivo AN2 para el canal 0 del ADC (solo en caso de conversor de 10 bits)
+    AD1CHS0bits.CH0SB = 2;
 }
+
 ```
 
 Se configura la adquisición de la variación de voltaje que obtiene el PIN AN del micro.
 ```c
 void adquirir_AD() {
+    // Se inicia la conversión ADC colocando el bit SAMP en 1
     AD1CON1bits.SAMP = 1;
+    // Se espera un corto período de tiempo para permitir que el muestreo ocurra
+    // Esto permite que la señal de entrada alcance su estado estable antes de iniciar la conversión
     __delay_ms(1);
+    // Se detiene el muestreo colocando el bit SAMP en 0, lo que inicia la conversión ADC
     AD1CON1bits.SAMP = 0;
+    // Se espera hasta que la conversión ADC esté completa, indicado por el bit DONE en 1
     while (!AD1CON1bits.DONE);
-    lectura = ADCBUF0; // >> 2; lectura es el voltaje medido
-    // lectura = lectura & (0x03FF); es inecesario
+    // Se lee el resultado de la conversión ADC desde el registro ADCBUF0
+    // En este caso, se está leyendo el valor de la conversión directamente, sin aplicar desplazamiento o máscara
+    // El valor leído representará el voltaje medido en el canal ADC configurado previamente
+    lectura = ADCBUF0;
+    // Se introduce un pequeño retardo antes de salir de la función
     __delay_ms(1);
 }
 ```
+La linea **while (!AD1CON1bits.DONE);**, especifica que se esta esperando a que termine de hacer el proceso de conversión para seguir con el siguiente proceso.
+Tambien se destaca que se puede usar voltajes externos como referencia cambiando los valores del registro VCFG del control 2 del ADC.
+
+<div style="text-align:center;">
+    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/raw/main/assets/140832465/f7bb3e08-15c8-47e9-a2b3-6c807cc9af55" alt="Descripción de la imagen" style="max-width: 200px;"/>
+</div>
+
+Además, se permite hacer un muestreo de datos por medio de 4 canales. Esto quiere decir que se puede hacer la conversión simultanea para 4 entradas analógica, dando la señal de salida en los registros respectivos de AD1BUFX.
 
 ##### VISUALIZACIÓN DINÁMICA
 
@@ -173,10 +216,6 @@ Se implementa un ejemplo de visualizador dinámico para el micro, sin necesidad 
 ##### UART (universal asynchronous receiver / transmitter)
 
 Se muestra en proyectos la forma de configurar la uart para transmitir y recivir datos, para esto se debe usar un driver que permita de serial a uart.
-
-<div style="text-align:center;">
-    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/raw/main/assets/140832465/9f53491b-75e8-4ac8-963d-ca5afcccd487" alt="Captura de pantalla 2024-04-05 191415" style="max-width: 300px;"/>
-</div>
 
 ```c
 void UART_conf() {
