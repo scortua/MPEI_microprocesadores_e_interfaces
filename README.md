@@ -263,4 +263,45 @@ void UART_conf() {
 
 Aquí se expecifica de igual manera la forma en que se debe configurar la uart en transmición y en recepción.
 
+##### TIMERS
 
+Es un contador y/o temporizador por flancos de reloj o de tiempo de instrucción.
+Existen 4 tipos (temporizador, comparador, contador sincrono y asincrono).
+
+<div style="text-align:center;">
+    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/raw/main/assets/140832465/5a22081a-8420-4d6a-b26f-c2eb104c0f83" alt="Captura de pantalla 2024-04-09 225309" style="max-width: 500px;"/>
+</div>
+>Configuración del Timer.
+1. Decidimos que timer usar // 5 timers // 1 2/3 4/5
+2. Decidimos si es de 16 o 32 bits
+3. Se decide el modo de operación
+4. Se coloca el prescaler del contador 1: H = 1.8.64.256
+5. Definir el límite de bits
+6. Definir qué hará el timer
+
+```c
+void conf_timer() {
+    // T1CONbits: Registro de control del Timer 1
+    // TCKPS: Bits de prescaler del Timer 1
+    T1CONbits.TCKPS = 3; // Configura el preescalador del Timer 1 a 1:256
+    // TGATE: Bit de control de sincronización del Timer 1
+    T1CONbits.TGATE = 0; // Deshabilita la sincronización del Timer 1
+    // TCS: Bit de selección de fuente de reloj del Timer 1
+    T1CONbits.TCS = 0; // Selecciona el reloj interno Fosc/2 como fuente de reloj para el Timer 1
+    // PR1: Registro de periodo del Timer 1
+    PR1 = 0xFFFF; // Establece el valor máximo de cuenta para el Timer 1 (16 bits)
+    // TON: Bit de encendido/apagado del Timer 1
+    T1CONbits.TON = 1; // Habilita el Timer 1
+}
+```
+
+<div style="text-align:center;">
+    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/raw/main/assets/140832465/8f47b767-f9fa-4ed7-8949-669be0a7ec62" alt="Captura de pantalla 2024-04-09 230058" style="max-width: 500px;"/>
+</div>
+
+<div style="text-align:center;">
+    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/raw/main/assets/140832465/e8e58011-63dc-408d-a08d-de8e81ae4174" alt="Captura de pantalla 2024-04-09 230214" style="max-width: 500px;"/>
+</div>
+
+>Entonces si fuera un reloj, si es de 16 bits:
+> FCY/2 * 2^16 * prescaler = Tiempo total en segundos.
