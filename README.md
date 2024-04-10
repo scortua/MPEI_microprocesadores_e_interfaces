@@ -224,10 +224,10 @@ Se utiliza un conversor usb-serial (ft232). Y por ende se especifica el uso de b
 >configuración del modulo UART
 1. Inicializar el registro UxBRG un valor de baudio apropiado.
 2. Colocar tamaño del dato UxMODEbits.PDSEL, colocar cantidad bits de stop UxMODEbits.STSEL.
-3. Colocar de ser haci la interrupción IEC0bits.U1XTXIE 0 para clarearla y 1 para iniciarla.
+3. Colocar de ser así la interrupción IEC0bits.U1XTXIE 0 para clarearla y 1 para iniciarla.
 4. Especificar la prioridad de la interrupción IPC0.U1TXIP.
 5. activar uart UxMODEbits.UARTEN.
-6. activar la trnasmicion UxMODEbits.UTXEN
+6. activar la transmicion UxMODEbits.UTXEN
 
 ```c
 void UART_conf() {
