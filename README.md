@@ -131,9 +131,7 @@ int calcular(int a, int b, int operacion) {
 Se implementa y configura el conversor análogo digital para adquirir una variación de voltaje.
 Este microcontrolador tiene 6 entradas analógicas (AN0-AN5).
 
-<div style="text-align:center;">
-    <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/raw/main/assets/140832465/45a35b31-8251-4053-96bc-685a0094290e" alt="Descripción de la imagen" style="max-width: 500px;"/>
-</div>
+
 
 Ahora, El SAR o sucessive aproximation register, es el responsable de identificar el valor de la señal de entrada analogica.
 La señal analógica de entrada (Vin) se muestrea y se mantiene a un valor constante. Esto se hace mediante un circuito de muestreo y retención (S/H).
@@ -144,6 +142,8 @@ El proceso de comparación y desplazamiento continúa hasta que el valor en el r
 El valor final en el registro SAR es la representación digital de la señal analógica de entrada.
 
 El conversor análogo-digital tiene como formatos de salida: con/sin signo fraccional y entero.
+
+![Captura de pantalla 2024-04-09 213809](https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/3c52c02d-bd1b-43f2-8e00-2480cda6bba2)
 
 >Configure el módulo ADC:
 1. Seleccione los pines del puerto como entradas analógicas (AD1PCFGH<15:0> ο AD1PCFGL<15:0>).
