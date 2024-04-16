@@ -29,7 +29,7 @@ El sistema embebido al que se refiere este repositorio se centra en el uso del m
 
 
 
-##### MPEI_Ejemplo0.X
+## MPEI_Ejemplo0.X
 Este proyecto trata de esplicar la simplicidad del sistema de entorno de desarrollo integrado (IDE) de MPLAB. Además, la implementación, la inicialización y la configuración del microcontrolador DSPIC33FJ128MC802.
 ```c
 #pragma config FNOSC = FRC  // oscillator mode
@@ -52,13 +52,13 @@ Este proyecto trata de esplicar la simplicidad del sistema de entorno de desarro
 #define y PORTXbits.RB0 //
 
 AD1PCFGL = 0xFFFF;  // pines analogos
-    // registos de 1x16 bits digital 1 analogo 0
+                    // registos de 1x16 bits digital 1 analogo 0
 TRISX = 0x0000;     // puerto X / entrada 1 salida 0
 ```
 > Configuración pines de IN/OUT 
 	Configuración de periféricos
 
-##### REPROGRAMACIÓN DE PINES RP
+## REPROGRAMACIÓN DE PINES RP
 
 Se usan las tablas del datasheet para reprogramar pines.
 
@@ -72,15 +72,15 @@ Se usan las tablas del datasheet para reprogramar pines.
     <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/98bf405c-71cc-445c-aef9-73449652c5e0" alt="tabla conf in" style="max-width: 500px;"/>
 </div>
 
-###### Tabla para configuración de entrada.
+#### Tabla para configuración de entrada.
 
 <div style="text-align:center;">
     <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/6c296bfa-ccc0-43f7-b857-99be30bfcb73" alt="tabla conf out" style="max-width: 500px;"/>
 </div>
 
-######  Tabla para configuración de salida.
+####  Tabla para configuración de salida.
 
-##### MOTOR_PASO
+## MOTOR_PASO
 
 Aqui entra el uso de las interrupciones.
 
@@ -95,7 +95,7 @@ void __attribute__((interrupt, auto_psv)) _INT0Interrupt(void) {
 }
 ```
 
-##### CALCULATOR
+## CALCULATOR
 
 A partir de un teclado de matriz se hace una acción matematica:
 
@@ -126,7 +126,7 @@ int calcular(int a, int b, int operacion) {
     }
 }
 ```
-##### CONVERSORES ADC
+## CONVERSORES ADC
 
 Se implementa y configura el conversor análogo digital para adquirir una variación de voltaje.
 Este microcontrolador tiene 6 entradas analógicas (AN0-AN5).
@@ -205,11 +205,11 @@ Tambien se destaca que se puede usar voltajes externos como referencia cambiando
 
 Además, se permite hacer un muestreo de datos por medio de 4 canales. Esto quiere decir que se puede hacer la conversión simultanea para 4 entradas analógica, dando la señal de salida en los registros respectivos de AD1BUFX de 12 o 10 bits dependiendo la configuración.
 
-##### VISUALIZACIÓN DINÁMICA
+## VISUALIZACIÓN DINÁMICA
 
 Se implementa un ejemplo de visualizador dinámico para el micro, sin necesidad de decodificador con 2 displays 7 segmentos.
 
-##### UART (universal asynchronous receiver / transmitter)
+## UART (universal asynchronous receiver / transmitter)
 
 La UART funciona en un modo asíncrono, lo que significa que no hay un reloj de sincronización compartido entre el transmisor y el receptor. En su lugar, los datos se envían en serie, bit por bit, junto con una señal de inicio y posiblemente una señal de parada para delimitar cada byte de datos. La velocidad de transmisión de datos, conocida como baud rate, se configura para asegurar que el receptor pueda interpretar correctamente los bits recibidos.
 
@@ -255,7 +255,7 @@ void UART_conf() {
 
 Aquí se expecifica de igual manera la forma en que se debe configurar la uart en transmición y en recepción.
 
-##### TIMERS
+## TIMERS
 
 Es un contador y/o temporizador por flancos de reloj o de tiempo de instrucción.
 Existen 4 tipos (temporizador, comparador, contador sincrono y asincrono).
@@ -287,6 +287,21 @@ void conf_timer() {
 ```
 
 ![Captura de pantalla 2024-04-09 230058](https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/f7213a96-808e-4a99-a1f2-e15e4d843f13)
+Ahora, una demostración tipo parcial paso a paso:
+```c
+yn=241;			// número 241 decimal 1111 0001 binario F1 hexa
+yn=yn>>1;		// desplaza a la derecha 1 bit 0111 1000 binario 120 decimal 78 hexa 
+resto=yn%100; 		// saca el 120 mod 100 = 20  
+yn=yn/100; 		// saca el 120 div 100 = 1
+U1TXREG=yn+0x0030;	// 1 + 48 = 49 -> 1 
+yn=resto;		// 20 
+resto=yn%10; 		// saca el 20 mod 10 = 0
+yn=yn/10;		// saca el 20 div 10 = 2
+U1TXREG=yn+0x0030;	// 2 + 48 = 50 -> 2 
+U1TXREG=resto+0x0030;   // 0 + 48 = 49 -> 0 
+U1TXREG='\n';		// end line 
+```
+dejando al final en el terminal de arduino ide un 120\endl
 
 ![Captura de pantalla 2024-04-09 230214](https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/d657c67d-48f1-43d7-a4bc-a312a5bb0301)
 
