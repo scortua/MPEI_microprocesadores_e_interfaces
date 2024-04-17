@@ -308,3 +308,27 @@ dejando al final en el terminal de arduino ide un 120\endl
 
 >Entonces si fuera un reloj, si es de 16 bits:
 > FCY/2 * 2^16 * prescaler = Tiempo total en segundos.
+
+##PWM 
+Pulse width modulation
+
+![Captura de pantalla 2024-04-16 194956](https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/b7d753b2-32dc-4937-a388-33fbbeae20df)
+
+El microcontrolador trae 8 pines de salida pwm y solo 6 son salidas sincronisables. Deben definirse en las salidas de TRIS. Tiene salidas H(high) y L(low). 
+
+![Captura de pantalla 2024-04-16 195232](https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/edaa338e-592c-4696-a0eb-07031b39a90d)
+>https://robots-argentina.com.ar/didactica/control-de-motores-de-corriente-continua-con-puente-h/
+>
+El sistema pwm es una técnica utilizada para controlar la cantidad de potencia entregada a una carga, como un motor, una bombilla LED o un servo motor, mediante la variación del ancho del pulso de una señal digital.
+
+> DUTY CYCLE = pulse width high / total period * 100%
+
+El driver que se utilizará en el curso es el L298N:
+![Captura de pantalla 2024-04-16 195652](https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/011363f9-0ac9-4f47-bd34-070ce906bc73)
+
+> Vpromedio = (Vmax - Vmin) * DUTY CYCLE / 100
+
+
+
+
+
