@@ -10,22 +10,22 @@
 
 #define analogo PORTBbits.RB0
 
-#define FP  FCY/2
-#define BAUDRATE 19200
-#define BRGVAL ((FP/BAUDRATE)/16)-1
-
 void conf_pwm();
 void ADC_conf();
 void adquirir();
 
+int lectura;
+double m = 1843/255;
+int b = 1843;
+
 int main(void) {
     AD1PCFGL = 0xFFFB;
-    TRISA = 0x0000;
     TRISB = 0x0000;
     ADC_conf();
     conf_pwm();
     while(1){
-        
+        adquirir();
+        P2DC1 = m * lectura + b;
     }
     return 0;
 }
@@ -40,7 +40,7 @@ void conf_pwm(){
     PWM2CON1bits.PEN1L = 1;     // se habilita pin pwm L
     P2DTCON1bits.DTAPS = 0;     // prescalador Tiempo muerto de pwm
     P2DTCON1bits.DTA = 59;       // tiempo muerto 4us
-    P2DC1 = 0x1599;                    // Duty Cycle    4800=50%    2ms : E66 = 20%   1ms : 733 = 10%    480=6.25%   64C = 8.75%    = xms/20ms * 18432 * 2
+    P2DC1 = 0x0733;                    // Duty Cycle    4800=50%    2ms : E66 = 20%   1ms : 733 = 10%    480=6.25%   64C = 8.75%    = xms/20ms * 18432 * 2
     P2TCONbits.PTEN = 1;            // enable PWM timerbase
 }
 
@@ -58,7 +58,9 @@ void ADC_conf(){
 
 void adquirir(){
     AD1CON1bits.SAMP = 1;
-    __delay_ms(20);
+    __delay_us(10);
     AD1CON1bits.SAMP = 0;
     while(!AD1CON1bits.DONE);
+    lectura = ADCBUF0 >> 2;
+    __delay_ms(5);
 } 
