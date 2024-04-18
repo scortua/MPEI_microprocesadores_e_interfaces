@@ -309,16 +309,32 @@ dejando al final en el terminal de arduino ide un 120\endl
 >Entonces si fuera un reloj, si es de 16 bits:
 > FCY/2 * 2^16 * prescaler = Tiempo total en segundos.
 
-##PWM 
+## PWM 
 Pulse width modulation
 
 ![Captura de pantalla 2024-04-16 194956](https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/b7d753b2-32dc-4937-a388-33fbbeae20df)
 
 El microcontrolador trae 8 pines de salida pwm y solo 6 son salidas sincronisables. Deben definirse en las salidas de TRIS. Tiene salidas H(high) y L(low). 
 
+```c
+void conf_pwm(){
+    P2TCONbits.PTCKPS = 1;      // periodo base prescaler de tiempo T = 4Tcy
+    P2TCONbits.PTMOD = 0;       // pwm opera en modo free running
+    P2TMRbits.PTMR = 0;         // 
+    P2TPERbits.PTPER = 0x4800;  // tiempo T =  20ms      20/2*Tcy = 18432
+    PWM2CON1bits.PMOD1 = 0;  	// habilita pin H y L para ser complementarios
+    PWM2CON1bits.PEN1H = 1;    	// se habilitan pin pwm H
+    PWM2CON1bits.PEN1L = 1;     // se habilita pin pwm L
+    P2DTCON1bits.DTAPS = 0;     // prescalador Tiempo muerto de pwm
+    P2DTCON1bits.DTA = 59;      // tiempo muerto 4us
+    P2DC1 = 0x0733;             // Duty Cycle    4800=50%    2ms : E66 = 20%   1ms : 733 = 10%    480=6.25%   64C = 8.75%    = xms/20ms * 18432 * 2
+    P2TCONbits.PTEN = 1;        // enable PWM timerbase
+}
+```
+
 ![Captura de pantalla 2024-04-16 195232](https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/edaa338e-592c-4696-a0eb-07031b39a90d)
 >https://robots-argentina.com.ar/didactica/control-de-motores-de-corriente-continua-con-puente-h/
->
+
 El sistema pwm es una técnica utilizada para controlar la cantidad de potencia entregada a una carga, como un motor, una bombilla LED o un servo motor, mediante la variación del ancho del pulso de una señal digital.
 
 > DUTY CYCLE = pulse width high / total period * 100%
