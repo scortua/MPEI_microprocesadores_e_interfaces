@@ -332,6 +332,26 @@ void conf_pwm(){
 }
 ```
 
+> Si el la frecuencia del microcontrolador es 7372800
+> entonces el periodo del micro es Fcy = Fosc/2 = 3686400
+> el periodo Tcy = 0.2712 673611 us 
+> Si se quiere cierto periodo del PWM T con o sin prescaler
+> 	T/Tcy = número -> PTPER
+
+```
+si T = 20ms
+n = T/Tcy = 20ms / 0.2712us = 73746	ó	n = T/4*Tcy = 20ms/4*0.2712us = 18436	debe ser de 0x0000 en hex o 0000 0000 0000 0000 bits
+PTPER = 18436 = 0x4804	que es el registro con el periodo deseado
+
+si se necesita **50%** duty cycle entonces PxDC1 = 0x4804 = 18436 -> 10ms que se ve como el 100% en high
+si se necesita **25%** duty cycle entonces PxDC1 = 0x2402 = 18436/2 = 9218 -> 5ms que se ve como el 50% en high
+
+si se necesita **1ms** de duty cycle entonces si 18436 -> 10ms ent x -> 1ms --> 1ms*18436/10ms = 1843
+	PxDC1 = 0x733 = 18436/10 = 1843
+si se necesita **1.5ms** de duty cycle entonces si 18436 -> 10ms entx -> 1.5ms --> 1.5ms*18436/10ms = 2765
+	PxDC1 = 0xACD = 18436/6.66 = 2765
+```
+
 ![Captura de pantalla 2024-04-16 195232](https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/edaa338e-592c-4696-a0eb-07031b39a90d)
 >https://robots-argentina.com.ar/didactica/control-de-motores-de-corriente-continua-con-puente-h/
 
