@@ -60,7 +60,7 @@ void ADC_configuration() {
     AD1CHS0 = 0x0000;
     AD1CON1bits.ADON = 1;
     AD1CHS0bits.CH0SA = 2;
-     AD1CHS0bits.CH0SB = 2;
+    AD1CHS0bits.CH0SB = 2;
 }
 
 void adquirir_AD() {
