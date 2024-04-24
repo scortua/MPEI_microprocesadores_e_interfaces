@@ -20,7 +20,9 @@ void UART_conf();
 void conf_pwm();
 
 int lectura;
-double m = 2*1843/255;
+double m = 14.4549;
+
+int duty;
 
 int main(void) {
     AD1PCFGL = 0xFFFB; // 1111 1111 1111 1011
@@ -30,7 +32,8 @@ int main(void) {
     conf_pwm();
     while(1){
         adquirir();
-        P2DC1 = m*lectura;
+        duty = m*lectura;
+        P2DC1 = duty;
     }
     
     return 0;
@@ -82,7 +85,7 @@ void conf_pwm(){
     PWM2CON1bits.PEN1H = 1;    // se habilitan pin pwm H
     PWM2CON1bits.PEN1L = 1;     // se habilita pin pwm L
     P2DTCON1bits.DTAPS = 0;     // prescalador Tiempo muerto de pwm
-    P2DTCON1bits.DTA = 59;       // tiempo muerto 4us
+    P2DTCON1bits.DTA = 59;       // tiempo muerto 16us
     P2DC1 = 0x0000; 
     P2TCONbits.PTEN = 1;            // enable PWM timerbase
 }
