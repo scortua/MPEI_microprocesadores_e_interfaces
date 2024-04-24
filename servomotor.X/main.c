@@ -34,7 +34,7 @@ void conf_pwm(){
     P2TCONbits.PTCKPS = 1;         // periodo base prescaler de tiempo T = 4Tcy
     P2TCONbits.PTMOD = 0;        // pwm opera en modo free running
     P2TMRbits.PTMR = 0;             // 
-    P2TPERbits.PTPER = 0x4800;  // tiempo T =  20ms      20/2*Tcy = 18432
+    P2TPERbits.PTPER = 0x4800;  // tiempo T =  20ms      20/2*4*Tcy = 18432
     PWM2CON1bits.PMOD1 = 0;  // habilita pin H y L para ser complementarios
     PWM2CON1bits.PEN1H = 1;    // se habilitan pin pwm H
     PWM2CON1bits.PEN1L = 1;     // se habilita pin pwm L
