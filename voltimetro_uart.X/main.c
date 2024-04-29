@@ -88,4 +88,5 @@ void __attribute__((__interrupt__)) _U1TXInterrupt(void) {
     while(!U1STAbits.TRMT);
     U1TXREG = '\n';// Transmit a end line
     while(!U1STAbits.TRMT);
+    
 }

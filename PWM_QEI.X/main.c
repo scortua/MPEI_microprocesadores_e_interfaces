@@ -8,6 +8,7 @@
 #define FCY 7372800
 #include <libpic30.h>
 #include "xc.h"
+#include <math.h>
 
 #define FP  FCY/2
 #define BAUDRATE 19200
@@ -20,10 +21,12 @@ void adquirir();
 void UART_conf();
 void conf_pwm();
 void QEI_conf();
+void transmitir();
 
-int lectura=0;
+int lectura = 0;
 double m = 14.4549;
-int duty=0;
+int duty = 0;
+int velocidad = 0;
 
 int main(void) {
     AD1PCFGL = 0xFFFB; // 1111 1111 1111 1011
@@ -39,7 +42,8 @@ int main(void) {
         adquirir();
         duty = m*lectura;//0X0E66-lectura*0X000E;
         P2DC1 = duty;
-        U1TXREG = POS1CNT;
+        transmitir();
+        POS1CNT = 0;
     }
     
     return 0;
@@ -87,7 +91,7 @@ void QEI_conf(){
     QEI1CONbits.TQGATE = 1;
     DFLT1CON = 0;
     DFLT1CONbits.QEOUT = 1;
-    MAX1CNT = 256;
+    MAX1CNT = 0XFFFF;
 }
 
  void UART_conf() {
@@ -103,5 +107,49 @@ void QEI_conf(){
 
     U1MODEbits.UARTEN = 1; // Enable UART
     U1STAbits.UTXEN = 1; // Enable Transmition UART    
-
 }
+ 
+ void transmitir(){
+     U1TXREG = 'L';// Transmit a end line
+    while(!U1STAbits.TRMT);
+    U1TXREG = 'a';// Transmit a end line
+    while(!U1STAbits.TRMT);
+    U1TXREG = ' ';// Transmit a end line
+    while(!U1STAbits.TRMT);
+    U1TXREG = 'v';// Transmit a end line
+    while(!U1STAbits.TRMT);
+    U1TXREG = 'e';// Transmit a end line
+    while(!U1STAbits.TRMT);
+    U1TXREG = 'l';// Transmit a end line
+    while(!U1STAbits.TRMT);
+    U1TXREG = 'o';// Transmit a end line
+    while(!U1STAbits.TRMT);
+    U1TXREG = 'c';// Transmit a end line
+    while(!U1STAbits.TRMT);
+    U1TXREG = 'i';// Transmit a end line
+    while(!U1STAbits.TRMT);
+    U1TXREG = 'd';// Transmit a end line
+    while(!U1STAbits.TRMT);
+    U1TXREG = 'a';// Transmit a end line
+    while(!U1STAbits.TRMT);
+    U1TXREG = 'd';// Transmit a end line
+    while(!U1STAbits.TRMT);
+    U1TXREG = ':';// Transmit a end line
+    while(!U1STAbits.TRMT);
+    velocidad = 10*POS1CNT*(60.0/(100.0*15200.0));
+    int centenas = velocidad/100;
+    centenas += 48;
+    U1TXREG = centenas; // Transmit one character
+    int decenas = velocidad/10;
+    decenas %= 10;
+    decenas += 48;
+    while(!U1STAbits.TRMT);
+    U1TXREG = decenas; // Transmit one character
+    int unidades = velocidad % 10; 
+    unidades += 48;
+    while(!U1STAbits.TRMT);
+    U1TXREG = unidades; // Transmit one character
+    while(!U1STAbits.TRMT);
+    U1TXREG = '\n';// Transmit a end line
+    while(!U1STAbits.TRMT);
+ }
