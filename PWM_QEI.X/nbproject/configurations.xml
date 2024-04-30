@@ -256,6 +256,8 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-157ff"/>
         <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="D:/Documentos/ECI/7mo Semestre/MPEI/laboratorios/repositorio/PWM_QEI.X/debug/default/PWM_QEI_ptg"/>
         <property key="programmerToGoImageName" value="PWM_QEI_ptg"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>

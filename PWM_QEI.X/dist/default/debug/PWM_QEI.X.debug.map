@@ -1,29 +1,29 @@
 Microchip Technology Inc, v2.10 (B)
 
 Tool Name:
-  c:\program files\microchip\xc16\v2.10\bin\bin\..\bin/elf-ld.exe
+  s:\software\mplab\compiler\bin\bin\..\bin/elf-ld.exe
 
 Command:
-  -TC:\\Users\\Juan\\AppData\\Local\\Temp\\tmp00002564.00 \
-  -TC:\\Users\\Juan\\AppData\\Local\\Temp\\tmp00002564.01 \
-  -TC:\\Users\\Juan\\AppData\\Local\\Temp\\tmp00002564.02 \
-  -TC:\\Users\\Juan\\AppData\\Local\\Temp\\tmp00002564.03 \
-  -TC:\\Users\\Juan\\AppData\\Local\\Temp\\tmp00002564.04 \
+  -TC:\\Users\\Scort\\AppData\\Local\\Temp\\tmp00005650.00 \
+  -TC:\\Users\\Scort\\AppData\\Local\\Temp\\tmp00005650.01 \
+  -TC:\\Users\\Scort\\AppData\\Local\\Temp\\tmp00005650.02 \
+  -TC:\\Users\\Scort\\AppData\\Local\\Temp\\tmp00005650.03 \
+  -TC:\\Users\\Scort\\AppData\\Local\\Temp\\tmp00005650.04 \
   -p33FJ128MC802 \
-  --mdfp=C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/dsPIC33F-GP-MC_DFP/1.4.235/xc16 \
+  --mdfp=S:/SOFTWARE/MPLAB/packs/Microchip/dsPIC33F-GP-MC_DFP/1.4.235/xc16 \
   -o \
   dist/default/debug/PWM_QEI.X.debug.elf \
-  -Lc:/program files/microchip/xc16/v2.10/bin/bin/.. \
-  -LC:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/dsPIC33F-GP-MC_DFP/1.4.235/xc16/bin/../support/PIC24H/gld \
-  -LC:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/dsPIC33F-GP-MC_DFP/1.4.235/xc16/bin/../support/dsPIC33F/gld \
-  -Lc:/program files/microchip/xc16/v2.10/bin/bin/../../lib \
-  -Lc:/program files/microchip/xc16/v2.10/bin/bin/../../support/PIC24E/gld \
-  -Lc:/program files/microchip/xc16/v2.10/bin/bin/../../support/PIC24F/gld \
-  -Lc:/program files/microchip/xc16/v2.10/bin/bin/../../support/PIC24H/gld \
-  -Lc:/program files/microchip/xc16/v2.10/bin/bin/../../support/dsPIC30F/gld \
-  -Lc:/program files/microchip/xc16/v2.10/bin/bin/../../support/dsPIC33C/gld \
-  -Lc:/program files/microchip/xc16/v2.10/bin/bin/../../support/dsPIC33E/gld \
-  -Lc:/program files/microchip/xc16/v2.10/bin/bin/../../support/dsPIC33F/gld \
+  -Ls:/software/mplab/compiler/bin/bin/.. \
+  -LS:/SOFTWARE/MPLAB/packs/Microchip/dsPIC33F-GP-MC_DFP/1.4.235/xc16/bin/../support/PIC24H/gld \
+  -LS:/SOFTWARE/MPLAB/packs/Microchip/dsPIC33F-GP-MC_DFP/1.4.235/xc16/bin/../support/dsPIC33F/gld \
+  -Ls:/software/mplab/compiler/bin/bin/../../lib \
+  -Ls:/software/mplab/compiler/bin/bin/../../support/PIC24E/gld \
+  -Ls:/software/mplab/compiler/bin/bin/../../support/PIC24F/gld \
+  -Ls:/software/mplab/compiler/bin/bin/../../support/PIC24H/gld \
+  -Ls:/software/mplab/compiler/bin/bin/../../support/dsPIC30F/gld \
+  -Ls:/software/mplab/compiler/bin/bin/../../support/dsPIC33C/gld \
+  -Ls:/software/mplab/compiler/bin/bin/../../support/dsPIC33E/gld \
+  -Ls:/software/mplab/compiler/bin/bin/../../support/dsPIC33F/gld \
   build/default/debug/main.o \
   --defsym=__MPLAB_BUILD=1 \
   --defsym=__MPLAB_DEBUG=1 \
@@ -54,36 +54,36 @@ Command:
 Optional library libp33FJ128MC802.a not found
 Archive member included because of file (symbol)
 
-c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
+s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
                               (__resetPRI)
-c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
-                              c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o) (__data_init_standard)
-c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(crt_start_mode_normal.Meo)
+s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
+                              s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o) (__data_init_standard)
+s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(crt_start_mode_normal.Meo)
                               (__crt_start_mode_normal)
-c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(delay32.Meo)
+s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(delay32.Meo)
                               build/default/debug/main.o (___delay32)
-c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fixsfsi.XX_o)
+s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(fixsfsi.XX_o)
                               build/default/debug/main.o (_(float, int, long long, short, float, short, int))
-c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.XX_o)
+s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.XX_o)
                               build/default/debug/main.o (___floatsisf)
-c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.XX_o)
-                              c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fixsfsi.XX_o) (__funpack)
-c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.XX_o)
+s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(funpack.XX_o)
+                              s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(fixsfsi.XX_o) (__funpack)
+s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.XX_o)
                               build/default/debug/main.o (___mulsf3)
-c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.XX_o)
-                              c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.XX_o) (__dnrmpackf)
-c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.XX_o)
-                              c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.XX_o) (__unpackdnrmf)
-c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(typefx.XX_o)
-                              c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.XX_o) (__typef)
-c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.XX_o)
-                              c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.XX_o) (__propnanf)
-c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.XX_o)
-                              c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.XX_o) (___floatdisf)
-c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.XX_o)
-                              c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.XX_o) (___floatundisf)
-c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.XX_o)
-                              c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.XX_o) (__fpack)
+s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.XX_o)
+                              s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.XX_o) (__dnrmpackf)
+s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.XX_o)
+                              s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.XX_o) (__unpackdnrmf)
+s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(typefx.XX_o)
+                              s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.XX_o) (__typef)
+s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.XX_o)
+                              s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.XX_o) (__propnanf)
+s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.XX_o)
+                              s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.XX_o) (___floatdisf)
+s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.XX_o)
+                              s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.XX_o) (___floatundisf)
+s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(fpack.XX_o)
+                              s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.XX_o) (__fpack)
 
 
 xc16-ld 2.10 (B)
@@ -96,12 +96,12 @@ Default Scalar Model: Small
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
-.text                        0x200               0x40e           0x615  (1557)
-.text                        0x60e               0x2f4           0x46e  (1134)
-.init.delay32                0x902                0x1c            0x2a  (42)
-.dinit                       0x91e                0x12            0x1b  (27)
+.text                        0x200               0x436           0x651  (1617)
+.text                        0x636               0x314           0x49e  (1182)
+.init.delay32                0x94a                0x1c            0x2a  (42)
+.dinit                       0x966                0x12            0x1b  (27)
 
-                 Total "program" memory used (bytes):          0xac8  (2760) 2%
+                 Total "program" memory used (bytes):          0xb34  (2868) 2%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x4000]
@@ -151,55 +151,59 @@ External Symbols in Program Memory (by address):
                   0x00023c                  __psv_init
                   0x000252                  __data_init_standard
                   0x000252                  __data_init
-                  0x0002c8                  __DefaultInterrupt
-                  0x0002ce                  ___fixsfsi
-                  0x000310                  ___floatsisf
-                  0x000316                  __funpack
-                  0x000340                  ___mulsf3x
-                  0x000340                  ___mulsf3
-                  0x00044c                  __dnrmpackf
-                  0x0004a0                  __unpackdnrmf
-                  0x0004fe                  __typef
-                  0x000532                  __propnanf
-                  0x000544                  ___floatdisf
-                  0x000564                  ___floatundisf
-                  0x0005c2                  __fpack
-                  0x00060e                  _main
-                  0x00066c                  _ADC_conf
-                  0x000694                  _adquirir
-                  0x0006bc                  _conf_pwm
-                  0x000704                  _QEI_conf
-                  0x000722                  _UART_conf
-                  0x00073e                  _transmitir
-                  0x000902                  ___delay32
+                  0x0002c8                  __T1Interrupt
+                  0x0002f0                  __DefaultInterrupt
+                  0x0002f6                  ___fixsfsi
+                  0x000338                  ___floatsisf
+                  0x00033e                  __funpack
+                  0x000368                  ___mulsf3x
+                  0x000368                  ___mulsf3
+                  0x000474                  __dnrmpackf
+                  0x0004c8                  __unpackdnrmf
+                  0x000526                  __typef
+                  0x00055a                  __propnanf
+                  0x00056c                  ___floatdisf
+                  0x00058c                  ___floatundisf
+                  0x0005ea                  __fpack
+                  0x000636                  _main
+                  0x000694                  _ADC_conf
+                  0x0006bc                  _adquirir
+                  0x0006e4                  _conf_pwm
+                  0x00072c                  _QEI_conf
+                  0x00074a                  _UART_conf
+                  0x000766                  _transmitir
+                  0x000930                  _conf_timer_1
+                  0x00094a                  ___delay32
 
 External Symbols in Program Memory (by name):
 
-                  0x00066c                  _ADC_conf
-                  0x000704                  _QEI_conf
-                  0x000722                  _UART_conf
-                  0x0002c8                  __DefaultInterrupt
-                  0x000902                  ___delay32
-                  0x0002ce                  ___fixsfsi
-                  0x000544                  ___floatdisf
-                  0x000310                  ___floatsisf
-                  0x000564                  ___floatundisf
-                  0x000340                  ___mulsf3
-                  0x000340                  ___mulsf3x
+                  0x000694                  _ADC_conf
+                  0x00072c                  _QEI_conf
+                  0x00074a                  _UART_conf
+                  0x0002f0                  __DefaultInterrupt
+                  0x0002c8                  __T1Interrupt
+                  0x00094a                  ___delay32
+                  0x0002f6                  ___fixsfsi
+                  0x00056c                  ___floatdisf
+                  0x000338                  ___floatsisf
+                  0x00058c                  ___floatundisf
+                  0x000368                  ___mulsf3
+                  0x000368                  ___mulsf3x
                   0x000252                  __data_init
                   0x000252                  __data_init_standard
-                  0x00044c                  __dnrmpackf
-                  0x0005c2                  __fpack
-                  0x000316                  __funpack
-                  0x000532                  __propnanf
+                  0x000474                  __dnrmpackf
+                  0x0005ea                  __fpack
+                  0x00033e                  __funpack
+                  0x00055a                  __propnanf
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x0004fe                  __typef
-                  0x0004a0                  __unpackdnrmf
-                  0x000694                  _adquirir
-                  0x0006bc                  _conf_pwm
-                  0x00060e                  _main
-                  0x00073e                  _transmitir
+                  0x000526                  __typef
+                  0x0004c8                  __unpackdnrmf
+                  0x0006bc                  _adquirir
+                  0x0006e4                  _conf_pwm
+                  0x000930                  _conf_timer_1
+                  0x000636                  _main
+                  0x000766                  _transmitir
 
 Memory Configuration
 
@@ -256,7 +260,7 @@ LOAD build/default/debug/main.o
                     0x0001                  __MPLAB_DEBUG = 0x1
                     0x0001                  __DEBUG = 0x1
 LOAD p33FJ128MC802
-LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libfx-elf.a
+LOAD s:/software/mplab/compiler/bin/bin/../../lib\libfx-elf.a
                     0xf80000                  __FBS = 0xf80000
                     0xf80002                  __FSS = 0xf80002
                     0xf80004                  __FGS = 0xf80004
@@ -286,54 +290,56 @@ LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libfx-elf.a
                   0x000002          0x2 SHORT 0x0 ((ABSOLUTE (__reset) >> 0x10) & 0x7f)
                   0x000003          0x2 SHORT 0x0
 
-.text             0x000200        0x40e
+.text             0x000200        0x436
  *(.init)
- .init            0x000200         0x4c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
+ .init            0x000200         0x4c s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
                   0x000200                  __resetPRI
                   0x000200                  __reset
                   0x00023c                  __psv_init
- .init            0x00024c         0x7c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
+ .init            0x00024c         0x7c s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
                   0x000252                  __data_init_standard
                   0x000252                  __data_init
  *(.user_init)
  *(.handle)
  *(.isr*)
- .isr             0x0002c8          0x4 default_isr
-                  0x0002c8                  __DefaultInterrupt
+ .isr.text        0x0002c8         0x28 build/default/debug/main.o
+                  0x0002c8                  __T1Interrupt
+ .isr             0x0002f0          0x4 default_isr
+                  0x0002f0                  __DefaultInterrupt
  *(.libc)
  *(.libm)
  *(.libdsp)
  *(.lib*)
  .libpic30_crt_start_mode
-                  0x0002cc          0x2 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(crt_start_mode_normal.Meo)
-                  0x0002cc                  __crt_start_mode
-                  0x0002cc                  __crt_start_mode_normal
- .libm.fixsfsi    0x0002ce         0x42 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fixsfsi.XX_o)
-                  0x0002ce                  _(float, int, long long, short, float, short, int)
+                  0x0002f4          0x2 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(crt_start_mode_normal.Meo)
+                  0x0002f4                  __crt_start_mode
+                  0x0002f4                  __crt_start_mode_normal
+ .libm.fixsfsi    0x0002f6         0x42 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(fixsfsi.XX_o)
+                  0x0002f6                  _(float, int, long long, short, float, short, int)
  .libm.floatsisf
-                  0x000310          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.XX_o)
-                  0x000310                  ___floatsisf
- .libm.funpack    0x000316         0x2a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.XX_o)
-                  0x000316                  __funpack
- .libmx           0x000340        0x10c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.XX_o)
-                  0x000340                  ___mulsf3x
-                  0x000340                  ___mulsf3
- .libmx           0x00044c         0x54 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.XX_o)
-                  0x00044c                  __dnrmpackf
- .libmx           0x0004a0         0x5e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.XX_o)
-                  0x0004a0                  __unpackdnrmf
- .libmx           0x0004fe         0x34 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(typefx.XX_o)
-                  0x0004fe                  __typef
- .libmx           0x000532         0x12 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.XX_o)
-                  0x000532                  __propnanf
+                  0x000338          0x6 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.XX_o)
+                  0x000338                  ___floatsisf
+ .libm.funpack    0x00033e         0x2a s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(funpack.XX_o)
+                  0x00033e                  __funpack
+ .libmx           0x000368        0x10c s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.XX_o)
+                  0x000368                  ___mulsf3x
+                  0x000368                  ___mulsf3
+ .libmx           0x000474         0x54 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.XX_o)
+                  0x000474                  __dnrmpackf
+ .libmx           0x0004c8         0x5e s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.XX_o)
+                  0x0004c8                  __unpackdnrmf
+ .libmx           0x000526         0x34 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(typefx.XX_o)
+                  0x000526                  __typef
+ .libmx           0x00055a         0x12 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.XX_o)
+                  0x00055a                  __propnanf
  .libm.floatdisf
-                  0x000544         0x20 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.XX_o)
-                  0x000544                  ___floatdisf
+                  0x00056c         0x20 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.XX_o)
+                  0x00056c                  ___floatdisf
  .libm.floatundisf
-                  0x000564         0x5e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.XX_o)
-                  0x000564                  ___floatundisf
- .libm.fpack      0x0005c2         0x4c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.XX_o)
-                  0x0005c2                  __fpack
+                  0x00058c         0x5e s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.XX_o)
+                  0x00058c                  ___floatundisf
+ .libm.fpack      0x0005ea         0x4c s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(fpack.XX_o)
+                  0x0005ea                  __fpack
 
 usercode
  *(usercode)
@@ -377,59 +383,59 @@ __FUID3
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x1d75
+.debug_info       0x000000       0x21f4
  *(.debug_info)
- .debug_info      0x000000       0x1707 build/default/debug/main.o
- .debug_info      0x001707         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fixsfsi.XX_o)
- .debug_info      0x001794         0x8f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.XX_o)
- .debug_info      0x001823         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.XX_o)
- .debug_info      0x0018b0         0x9d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.XX_o)
- .debug_info      0x00194d         0xa0 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.XX_o)
- .debug_info      0x0019ed         0xa2 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.XX_o)
- .debug_info      0x001a8f         0x9c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(typefx.XX_o)
- .debug_info      0x001b2b         0x9f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.XX_o)
- .debug_info      0x001bca         0x8f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.XX_o)
- .debug_info      0x001c59         0x91 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.XX_o)
- .debug_info      0x001cea         0x8b c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.XX_o)
+ .debug_info      0x000000       0x1b86 build/default/debug/main.o
+ .debug_info      0x001b86         0x8d s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(fixsfsi.XX_o)
+ .debug_info      0x001c13         0x8f s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.XX_o)
+ .debug_info      0x001ca2         0x8d s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(funpack.XX_o)
+ .debug_info      0x001d2f         0x9d s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.XX_o)
+ .debug_info      0x001dcc         0xa0 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.XX_o)
+ .debug_info      0x001e6c         0xa2 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.XX_o)
+ .debug_info      0x001f0e         0x9c s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(typefx.XX_o)
+ .debug_info      0x001faa         0x9f s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.XX_o)
+ .debug_info      0x002049         0x8f s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.XX_o)
+ .debug_info      0x0020d8         0x91 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.XX_o)
+ .debug_info      0x002169         0x8b s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(fpack.XX_o)
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x21e
+.debug_abbrev     0x000000        0x233
  *(.debug_abbrev)
- .debug_abbrev    0x000000        0x142 build/default/debug/main.o
- .debug_abbrev    0x000142         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fixsfsi.XX_o)
- .debug_abbrev    0x000156         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.XX_o)
- .debug_abbrev    0x00016a         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.XX_o)
- .debug_abbrev    0x00017e         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.XX_o)
- .debug_abbrev    0x000192         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.XX_o)
- .debug_abbrev    0x0001a6         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.XX_o)
- .debug_abbrev    0x0001ba         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(typefx.XX_o)
- .debug_abbrev    0x0001ce         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.XX_o)
- .debug_abbrev    0x0001e2         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.XX_o)
- .debug_abbrev    0x0001f6         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.XX_o)
- .debug_abbrev    0x00020a         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.XX_o)
+ .debug_abbrev    0x000000        0x157 build/default/debug/main.o
+ .debug_abbrev    0x000157         0x14 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(fixsfsi.XX_o)
+ .debug_abbrev    0x00016b         0x14 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.XX_o)
+ .debug_abbrev    0x00017f         0x14 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(funpack.XX_o)
+ .debug_abbrev    0x000193         0x14 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.XX_o)
+ .debug_abbrev    0x0001a7         0x14 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.XX_o)
+ .debug_abbrev    0x0001bb         0x14 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.XX_o)
+ .debug_abbrev    0x0001cf         0x14 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(typefx.XX_o)
+ .debug_abbrev    0x0001e3         0x14 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.XX_o)
+ .debug_abbrev    0x0001f7         0x14 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.XX_o)
+ .debug_abbrev    0x00020b         0x14 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.XX_o)
+ .debug_abbrev    0x00021f         0x14 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(fpack.XX_o)
 
-.debug_line       0x000000        0x5ce
+.debug_line       0x000000        0x5c9
  *(.debug_line)
- .debug_line      0x000000        0x180 build/default/debug/main.o
- .debug_line      0x000180         0x56 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fixsfsi.XX_o)
- .debug_line      0x0001d6         0x3a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.XX_o)
- .debug_line      0x000210         0x4a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.XX_o)
- .debug_line      0x00025a         0xcc c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.XX_o)
- .debug_line      0x000326         0x72 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.XX_o)
- .debug_line      0x000398         0x7a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.XX_o)
- .debug_line      0x000412         0x5e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(typefx.XX_o)
- .debug_line      0x000470         0x51 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.XX_o)
- .debug_line      0x0004c1         0x47 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.XX_o)
- .debug_line      0x000508         0x6c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.XX_o)
- .debug_line      0x000574         0x5a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.XX_o)
+ .debug_line      0x000000        0x17b build/default/debug/main.o
+ .debug_line      0x00017b         0x56 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(fixsfsi.XX_o)
+ .debug_line      0x0001d1         0x3a s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.XX_o)
+ .debug_line      0x00020b         0x4a s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(funpack.XX_o)
+ .debug_line      0x000255         0xcc s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.XX_o)
+ .debug_line      0x000321         0x72 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.XX_o)
+ .debug_line      0x000393         0x7a s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.XX_o)
+ .debug_line      0x00040d         0x5e s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(typefx.XX_o)
+ .debug_line      0x00046b         0x51 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.XX_o)
+ .debug_line      0x0004bc         0x47 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.XX_o)
+ .debug_line      0x000503         0x6c s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.XX_o)
+ .debug_line      0x00056f         0x5a s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(fpack.XX_o)
 
-.debug_frame      0x000000         0xca
+.debug_frame      0x000000        0x12a
  *(.debug_frame)
- .debug_frame     0x000000         0xca build/default/debug/main.o
+ .debug_frame     0x000000        0x12a build/default/debug/main.o
 
-.debug_str        0x000000         0xa8
+.debug_str        0x000000         0xc4
  *(.debug_str)
- .debug_str       0x000000         0xa8 build/default/debug/main.o
+ .debug_str       0x000000         0xc4 build/default/debug/main.o
 
 .debug_loc
  *(.debug_loc)
@@ -438,10 +444,10 @@ __FUID3
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000         0x95
+                  0x000000         0xb7
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000         0x95 build/default/debug/main.o
+                  0x000000         0xb7 build/default/debug/main.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -451,27 +457,27 @@ __FUID3
  .debug_aranges
                   0x000000         0x18 build/default/debug/main.o
  .debug_aranges
-                  0x000018         0x20 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fixsfsi.XX_o)
+                  0x000018         0x20 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(fixsfsi.XX_o)
  .debug_aranges
-                  0x000038         0x20 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.XX_o)
+                  0x000038         0x20 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.XX_o)
  .debug_aranges
-                  0x000058         0x20 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.XX_o)
+                  0x000058         0x20 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(funpack.XX_o)
  .debug_aranges
-                  0x000078         0x20 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.XX_o)
+                  0x000078         0x20 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.XX_o)
  .debug_aranges
-                  0x000098         0x20 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.XX_o)
+                  0x000098         0x20 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.XX_o)
  .debug_aranges
-                  0x0000b8         0x20 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.XX_o)
+                  0x0000b8         0x20 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.XX_o)
  .debug_aranges
-                  0x0000d8         0x20 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(typefx.XX_o)
+                  0x0000d8         0x20 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(typefx.XX_o)
  .debug_aranges
-                  0x0000f8         0x20 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.XX_o)
+                  0x0000f8         0x20 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.XX_o)
  .debug_aranges
-                  0x000118         0x20 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.XX_o)
+                  0x000118         0x20 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.XX_o)
  .debug_aranges
-                  0x000138         0x20 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.XX_o)
+                  0x000138         0x20 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.XX_o)
  .debug_aranges
-                  0x000158         0x20 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.XX_o)
+                  0x000158         0x20 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(fpack.XX_o)
                     0x0000                  WREG0 = 0x0
                     0x0000                  _WREG0 = 0x0
                     0x0002                  WREG1 = 0x2
@@ -1553,41 +1559,41 @@ __FUID3
                     0x0230                  UART2 = 0x230
                     0x0230                  _UART2 = 0x230
 START GROUP
-LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a
-LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libm-elf.a
-LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-elf.a
+LOAD s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a
+LOAD s:/software/mplab/compiler/bin/bin/../../lib\libm-elf.a
+LOAD s:/software/mplab/compiler/bin/bin/../../lib\libc99-elf.a
 END GROUP
 OUTPUT(dist/default/debug/PWM_QEI.X.debug.elf elf32-pic30)
 LOAD default_isr
 LOAD data_init
 
 .debug_pubtypes
-                  0x000178        0x1d8
+                  0x000178        0x231
  .debug_pubtypes
-                  0x000178        0x1d8 build/default/debug/main.o
+                  0x000178        0x231 build/default/debug/main.o
 
 __c30_signature
-                  0x000350         0x3c
+                  0x0003a9         0x3c
  __c30_signature
-                  0x000350          0x6 build/default/debug/main.o
+                  0x0003a9          0x6 build/default/debug/main.o
  __c30_signature
-                  0x000356          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
+                  0x0003af          0x6 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x00035c          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
+                  0x0003b5          0x6 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
  __c30_signature
-                  0x000362          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(delay32.Meo)
+                  0x0003bb          0x6 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(delay32.Meo)
  __c30_signature
-                  0x000368          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fixsfsi.XX_o)
+                  0x0003c1          0x6 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(fixsfsi.XX_o)
  __c30_signature
-                  0x00036e          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.XX_o)
+                  0x0003c7          0x6 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.XX_o)
  __c30_signature
-                  0x000374          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.XX_o)
+                  0x0003cd          0x6 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(funpack.XX_o)
  __c30_signature
-                  0x00037a          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.XX_o)
+                  0x0003d3          0x6 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.XX_o)
  __c30_signature
-                  0x000380          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.XX_o)
+                  0x0003d9          0x6 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.XX_o)
  __c30_signature
-                  0x000386          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.XX_o)
+                  0x0003df          0x6 s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(fpack.XX_o)
 
 .nbss               0x0850          0x6
  .nbss              0x0850          0x6 build/default/debug/main.o
@@ -1610,19 +1616,25 @@ __c30_signature
 .config_IESO      0xf80006          0x2
  .config_IESO     0xf80006          0x2 build/default/debug/main.o
 
-.text             0x00060e        0x2f4
- .text            0x00060e        0x2f4 build/default/debug/main.o
-                  0x00060e                  _main
-                  0x00066c                  _ADC_conf
-                  0x000694                  _adquirir
-                  0x0006bc                  _conf_pwm
-                  0x000704                  _QEI_conf
-                  0x000722                  _UART_conf
-                  0x00073e                  _transmitir
+.ivt._T1Interrupt
+                  0x00001a          0x2
+ .ivt._T1Interrupt
+                  0x00001a          0x2 build/default/debug/main.o
 
-.init.delay32     0x000902         0x1c
- .init.delay32    0x000902         0x1c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(delay32.Meo)
-                  0x000902                  ___delay32
+.text             0x000636        0x314
+ .text            0x000636        0x314 build/default/debug/main.o
+                  0x000636                  _main
+                  0x000694                  _ADC_conf
+                  0x0006bc                  _adquirir
+                  0x0006e4                  _conf_pwm
+                  0x00072c                  _QEI_conf
+                  0x00074a                  _UART_conf
+                  0x000766                  _transmitir
+                  0x000930                  _conf_timer_1
 
-.dinit            0x00091e         0x12
- .dinit           0x00091e         0x12 data_init
+.init.delay32     0x00094a         0x1c
+ .init.delay32    0x00094a         0x1c s:/software/mplab/compiler/bin/bin/../../lib\libc99-pic30-elf.a(delay32.Meo)
+                  0x00094a                  ___delay32
+
+.dinit            0x000966         0x12
+ .dinit           0x000966         0x12 data_init

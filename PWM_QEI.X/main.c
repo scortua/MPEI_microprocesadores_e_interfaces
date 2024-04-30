@@ -22,6 +22,9 @@ void conf_pwm();
 void QEI_conf();
 void transmitir();
 
+void conf_timer_1();
+void __attribute__((interrupt, auto_psv)) _T1Interrupt(void);
+
 int lectura = 0;
 double m = 2.0*1843.0/255.0;
 int duty = 0;
@@ -37,14 +40,20 @@ int main(void) {
     conf_pwm();
     QEI_conf();
     UART_conf();
+    conf_timer_1();
+    
+    IEC0bits.T1IE = 1;
     
     while(1){
         adquirir();
         duty = m*lectura;//0X0E66-lectura*0X000E;
         P2DC1 = duty;
+        __delay_ms(10);
+        /*
         transmitir();
-        __delay_ms(10);     //Se lee el numero de pulsos por cada 10 milisegundos y se resetea el registro
+        __delay_ms(4);     //Se lee el numero de pulsos por cada 10 milisegundos y se resetea el registro
         POS1CNT = 0;
+         */
     }
     
     return 0;
@@ -136,8 +145,7 @@ void QEI_conf(){
     while(!U1STAbits.TRMT);
     U1TXREG = ':';// Transmit a end line
     while(!U1STAbits.TRMT);
-    velocidad = POS1CNT;
-    //velocidad = POS1CNT * 60; // pulsos contados en 10 ms [pulsos/10ms] * (1000ms/1seg)*(1rev/100pulsos)*(60seg/1min)= 60 
+    velocidad = POS1CNT*60 ; // pulsos contados en 10 ms [pulsos/10ms] * (1000ms/1seg)*(1rev/100pulsos)*(60seg/1min)= 60 
     int diez_miles = velocidad / 10000;
     diez_miles += 48;
     U1TXREG = diez_miles;
@@ -163,7 +171,21 @@ void QEI_conf(){
     while(!U1STAbits.TRMT);
     U1TXREG = '\n';// Transmit a end line
     while(!U1STAbits.TRMT);
-    
-    
-    
  }
+
+ void conf_timer_1() {
+    //T2CONbits.T32 = 0; // coloca el registro en 32 bits
+    T1CONbits. TCKPS = 2; //Select input clock prescaler as 1:1
+    T1CONbits. TGATE = 0; //Disable Gate Time Accumulation Mode
+    T1CONbits.TCS = 0; //Select internal clock as the timer clock source
+    PR1 = 0xE100; // definimos numero de pulsos para 5 segundo
+    T1CONbits. TON = 1; //Activate the timer module
+}
+
+ void __attribute__((interrupt, auto_psv)) _T1Interrupt(void) {
+     transmitir();
+     POS1CNT = 0;
+    IFS0bits. T1IF = 0;
+}
+ 
+ 
