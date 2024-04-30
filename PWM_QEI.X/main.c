@@ -138,7 +138,7 @@ void QEI_conf(){
     U1TXREG = diez_miles;
     while(!U1STAbits.TRMT);
     int miles = velocidad / 1000;
-    miles %/ 10;
+    miles %= 10;
     miles += 48;
     U1TXREG = miles;
     while(!U1STAbits.TRMT);
