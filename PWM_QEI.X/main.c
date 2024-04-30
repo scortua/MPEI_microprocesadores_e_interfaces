@@ -8,7 +8,6 @@
 #define FCY 7372800
 #include <libpic30.h>
 #include "xc.h"
-#include <math.h>
 
 #define FP  FCY/2
 #define BAUDRATE 19200
@@ -24,7 +23,7 @@ void QEI_conf();
 void transmitir();
 
 int lectura = 0;
-double m = 14.4549;
+double m = 2.0*1843.0/255.0;
 int duty = 0;
 int velocidad = 0;
 
@@ -36,13 +35,14 @@ int main(void) {
     ADC_conf();
     conf_pwm();
     QEI_conf();
-    //UART_conf();
+    UART_conf();
     
     while(1){
         adquirir();
         duty = m*lectura;//0X0E66-lectura*0X000E;
         P2DC1 = duty;
         transmitir();
+        __delay_ms(10);     //Se lee el numero de pulsos por cada 10 milisegundos y se resetea el registro
         POS1CNT = 0;
     }
     
@@ -63,7 +63,7 @@ void ADC_conf() {
 
 void adquirir() {
     AD1CON1bits.SAMP = 1;
-    __delay_ms(1);
+    __delay_us(10);
     AD1CON1bits.SAMP = 0;
     while (!AD1CON1bits.DONE);
     lectura = ADCBUF0 >> 2; 
@@ -86,11 +86,7 @@ void conf_pwm(){
 
 void QEI_conf(){
     QEI1CON = 0;
-    QEI1CONbits.UPDN = 1;
     QEI1CONbits.QEIM = 5;
-    QEI1CONbits.TQGATE = 1;
-    DFLT1CON = 0;
-    DFLT1CONbits.QEOUT = 1;
     MAX1CNT = 0XFFFF;
 }
 
@@ -110,7 +106,7 @@ void QEI_conf(){
 }
  
  void transmitir(){
-     U1TXREG = 'L';// Transmit a end line
+    U1TXREG = 'L';// Transmit a end line
     while(!U1STAbits.TRMT);
     U1TXREG = 'a';// Transmit a end line
     while(!U1STAbits.TRMT);
@@ -136,18 +132,28 @@ void QEI_conf(){
     while(!U1STAbits.TRMT);
     U1TXREG = ':';// Transmit a end line
     while(!U1STAbits.TRMT);
-    velocidad = 10*POS1CNT*(60.0/(100.0*15200.0));
+    velocidad = POS1CNT * 60; // pulsos contados en 10 ms [pulsos/10ms] * (1000ms/1seg)*(1rev/100pulsos)*(60seg/1min)= 60 
+    int diez_miles = velocidad / 10000;
+    diez_miles += 48;
+    U1TXREG = diez_miles;
+    while(!U1STAbits.TRMT);
+    int miles = velocidad / 1000;
+    miles %/ 10;
+    miles += 48;
+    U1TXREG = miles;
+    while(!U1STAbits.TRMT);
     int centenas = velocidad/100;
+    centenas %= 10;
     centenas += 48;
     U1TXREG = centenas; // Transmit one character
+    while(!U1STAbits.TRMT);
     int decenas = velocidad/10;
     decenas %= 10;
     decenas += 48;
-    while(!U1STAbits.TRMT);
     U1TXREG = decenas; // Transmit one character
+    while(!U1STAbits.TRMT);
     int unidades = velocidad % 10; 
     unidades += 48;
-    while(!U1STAbits.TRMT);
     U1TXREG = unidades; // Transmit one character
     while(!U1STAbits.TRMT);
     U1TXREG = '\n';// Transmit a end line
