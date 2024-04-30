@@ -25,13 +25,14 @@ void transmitir();
 int lectura = 0;
 double m = 2.0*1843.0/255.0;
 int duty = 0;
-int velocidad = 0;
+unsigned int velocidad = 0;
 
 int main(void) {
     AD1PCFGL = 0xFFFB; // 1111 1111 1111 1011
-    TRISB = 0x0005; // 0000 0000 0000 0101
+    TRISB = 0x000D; // 0000 0000 0000 1101
     RPINR14bits.QEA1R = 2; // entrada por RP2
     RPOR0bits.RP1R = 3; // Salida UART1 por RP1
+    RPINR14bits.QEB1R = 3;
     ADC_conf();
     conf_pwm();
     QEI_conf();
@@ -86,8 +87,11 @@ void conf_pwm(){
 
 void QEI_conf(){
     QEI1CON = 0;
+    POS1CNT = 0;
     QEI1CONbits.QEIM = 5;
-    MAX1CNT = 0XFFFF;
+    QEI1CONbits.UPDN = 0;
+    QEI1CONbits.UPDN = 1;
+    MAX1CNT = 0X0064;
 }
 
  void UART_conf() {
@@ -132,7 +136,8 @@ void QEI_conf(){
     while(!U1STAbits.TRMT);
     U1TXREG = ':';// Transmit a end line
     while(!U1STAbits.TRMT);
-    velocidad = POS1CNT * 60; // pulsos contados en 10 ms [pulsos/10ms] * (1000ms/1seg)*(1rev/100pulsos)*(60seg/1min)= 60 
+    velocidad = POS1CNT;
+    //velocidad = POS1CNT * 60; // pulsos contados en 10 ms [pulsos/10ms] * (1000ms/1seg)*(1rev/100pulsos)*(60seg/1min)= 60 
     int diez_miles = velocidad / 10000;
     diez_miles += 48;
     U1TXREG = diez_miles;
@@ -158,4 +163,7 @@ void QEI_conf(){
     while(!U1STAbits.TRMT);
     U1TXREG = '\n';// Transmit a end line
     while(!U1STAbits.TRMT);
+    
+    
+    
  }
