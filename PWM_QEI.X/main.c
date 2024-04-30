@@ -1,4 +1,4 @@
- #pragma config FNOSC = FRC  // Selecciona el oscilador interno r?pido (FRC)
+#pragma config FNOSC = FRC  // Selecciona el oscilador interno r?pido (FRC)
 #pragma config IESO = ON    // Habilita el cambio de oscilador interno/externo
 #pragma config FWDTEN = OFF // Deshabilita el watchdog timer
 #pragma config ICS = PGD3   // Selecciona el canal de comunicaci?n PGD3
