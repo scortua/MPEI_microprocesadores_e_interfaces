@@ -14,6 +14,7 @@
 #define BRGVAL ((FP/BAUDRATE)/16)-1
 
 #define analogo PORTBbits.RB0
+#define BUTTON PORTBbits.RB7 // registro digital RB7 de INT
 
 void ADC_conf();
 void adquirir();
@@ -25,10 +26,13 @@ void transmitir();
 void conf_timer_1();
 void __attribute__((interrupt, auto_psv)) _T1Interrupt(void);
 
+void __attribute__((interrupt, auto_psv)) _INT0Interrupt(void);
+
 int lectura = 0;
 double m = 2.0*1843.0/255.0;
 int duty = 0;
 unsigned int velocidad = 0;
+int estado = 0;
 
 int main(void) {
     AD1PCFGL = 0xFFFB; // 1111 1111 1111 1011
@@ -41,7 +45,10 @@ int main(void) {
     QEI_conf();
     UART_conf();
     conf_timer_1();
-    
+    // interrupcion por boton
+    IFS0bits.INT0IF = 0;
+    IEC0bits.INT0IE = 1;    
+    // interrupcion por timer
     IEC0bits.T1IE = 1;
     
     while(1){
@@ -100,22 +107,17 @@ void QEI_conf(){
     QEI1CONbits.QEIM = 5;
     QEI1CONbits.UPDN = 0;
     QEI1CONbits.UPDN = 1;
-    MAX1CNT = 0X0064;
+    MAX1CNT = 0X0064;               // maximo conteo de pulsos
 }
 
  void UART_conf() {
-    U1MODEbits.STSEL = 0; // 1-Stop bit        
-    U1MODEbits.PDSEL = 0; // No Parity, 8-Data bits
-    U1MODEbits.ABAUD = 0; // Auto-Baud disabled
-    U1MODEbits.BRGH = 0; // Standard-Speed mode
-
-    U1BRG = BRGVAL; // Baud Rate setting for monda
-
-    //U1STAbits.UTXISEL1 = 0; // Interrupt after one RX character is received   
-    //IEC0bits.U1RXIE = 1; // Enable UART RX interrupt
-
-    U1MODEbits.UARTEN = 1; // Enable UART
-    U1STAbits.UTXEN = 1; // Enable Transmition UART    
+    U1MODEbits.STSEL = 0;           // 1-Stop bit        
+    U1MODEbits.PDSEL = 0;           // No Parity, 8-Data bits
+    U1MODEbits.ABAUD = 0;         // Auto-Baud disabled
+    U1MODEbits.BRGH = 0;            // Standard-Speed mode
+    U1BRG = BRGVAL;                     // Baud Rate setting for monda
+    U1MODEbits.UARTEN = 1;        // Enable UART
+    U1STAbits.UTXEN = 1;               // Enable Transmition UART    
 }
  
  void transmitir(){
@@ -183,9 +185,22 @@ void QEI_conf(){
 }
 
  void __attribute__((interrupt, auto_psv)) _T1Interrupt(void) {
-     transmitir();
-     POS1CNT = 0;
-    IFS0bits. T1IF = 0;
+     transmitir();                      // transmision de encoder por uart
+     POS1CNT = 0;                 // se resetea el contador del qei
+    IFS0bits. T1IF = 0;             // aclarar la bandera de interrupcion
 }
+ 
+ void __attribute__((interrupt, auto_psv)) _INT0Interrupt(void){
+     
+     if(estado = 0){
+        P2TCONbits.PTEN = 1;            // enable PWM timerbase
+        estado = 1;                             // el estado quieto pasa a movimiento
+     }else{
+        P2TCONbits.PTEN = 0;            // enable PWM timerbase
+        estado = 0;                             // estado de movimiento pasa a quieto
+     }
+     IFS0bits.INT0IF = 0;                   // aclarar la bandera de interrupcion
+ }
+ 
  
  
