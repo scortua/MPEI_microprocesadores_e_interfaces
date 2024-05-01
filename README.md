@@ -307,7 +307,7 @@ dejando al final en el terminal de arduino ide un 120\endl
 
 
 >Entonces si fuera un reloj, si es de 16 bits:
-> FCY/2 * 2^16 * prescaler = Tiempo total en segundos.
+> 2/FCY * 2^16 * prescaler = Tiempo total en segundos.
 
 ## PWM 
 Pulse width modulation
