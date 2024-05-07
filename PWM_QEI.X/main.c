@@ -45,17 +45,13 @@ int main(void) {
     QEI_conf();
     UART_conf();
     conf_timer_1();
-    // interrupcion por boton
     IFS0bits.INT0IF = 0;
-    IEC0bits.INT0IE = 1;    
-    // interrupcion por timer
-    IEC0bits.T1IE = 1;
+    IEC0bits.INT0IE = 1; 
     
     while(1){
         adquirir();
         duty = m*lectura;//0X0E66-lectura*0X000E;
         P2DC1 = duty;
-        __delay_ms(10);
         /*
         transmitir();
         __delay_ms(4);     //Se lee el numero de pulsos por cada 10 milisegundos y se resetea el registro
@@ -107,7 +103,7 @@ void QEI_conf(){
     QEI1CONbits.QEIM = 5;
     QEI1CONbits.UPDN = 0;
     QEI1CONbits.UPDN = 1;
-    MAX1CNT = 0X0064;               // maximo conteo de pulsos
+    MAX1CNT = 0XFFFF;               // maximo conteo de pulsos
 }
 
  void UART_conf() {
@@ -147,7 +143,7 @@ void QEI_conf(){
     while(!U1STAbits.TRMT);
     U1TXREG = ':';// Transmit a end line
     while(!U1STAbits.TRMT);
-    velocidad = POS1CNT*60 ; // pulsos contados en 10 ms [pulsos/10ms] * (1000ms/1seg)*(1rev/100pulsos)*(60seg/1min)= 60 
+    velocidad = POS1CNT*0.5882 ; // pulsos contados en 10 ms [pulsos/10ms] * (1000ms/1seg)*(1rev/100pulsos)*(60seg/1min)= 60 
     int diez_miles = velocidad / 10000;
     diez_miles += 48;
     U1TXREG = diez_miles;
@@ -182,24 +178,27 @@ void QEI_conf(){
     T1CONbits.TCS = 0; //Select internal clock as the timer clock source
     PR1 = 0xE100; // definimos numero de pulsos para 5 segundo
     T1CONbits. TON = 1; //Activate the timer module
+    IEC0bits.T1IE = 1;
+    IFS0bits. T1IF = 0;
+        
 }
 
  void __attribute__((interrupt, auto_psv)) _T1Interrupt(void) {
-     transmitir();                      // transmision de encoder por uart
-     POS1CNT = 0;                 // se resetea el contador del qei
-    IFS0bits. T1IF = 0;             // aclarar la bandera de interrupcion
+    transmitir(); // transmision de encoder por uart
+    POS1CNT = 0; // se resetea el contador del qei
+    IFS0bits. T1IF = 0; // aclarar la bandera de interrupcion
 }
  
  void __attribute__((interrupt, auto_psv)) _INT0Interrupt(void){
-     
-     if(estado = 0){
-        P2TCONbits.PTEN = 1;            // enable PWM timerbase
-        estado = 1;                             // el estado quieto pasa a movimiento
-     }else{
-        P2TCONbits.PTEN = 0;            // enable PWM timerbase
-        estado = 0;                             // estado de movimiento pasa a quieto
-     }
-     IFS0bits.INT0IF = 0;                   // aclarar la bandera de interrupcion
+
+    if (estado = 0) {
+        P2TCONbits.PTEN = 1; // enable PWM timerbase
+        estado = 1; // el estado quieto pasa a movimiento
+    } else {
+        P2TCONbits.PTEN = 0; // enable PWM timerbase
+        estado = 0; // estado de movimiento pasa a quieto
+    }
+    IFS0bits.INT0IF = 0; // aclarar la bandera de interrupcion
  }
  
  
