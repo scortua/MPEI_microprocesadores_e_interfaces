@@ -37,9 +37,9 @@ int estado = 0;
 int main(void) {
     AD1PCFGL = 0xFFFB; // 1111 1111 1111 1011
     TRISB = 0x000D; // 0000 0000 0000 1101
-    RPINR14bits.QEA1R = 2; // entrada por RP2
+    RPINR14bits.QEA1R = 2;
+    RPINR14bits.QEB1R = 3; 
     RPOR0bits.RP1R = 3; // Salida UART1 por RP1
-    RPINR14bits.QEB1R = 3;
     ADC_conf();
     conf_pwm();
     QEI_conf();
@@ -101,7 +101,6 @@ void QEI_conf(){
     QEI1CON = 0;
     POS1CNT = 0;
     QEI1CONbits.QEIM = 5;
-    QEI1CONbits.UPDN = 0;
     QEI1CONbits.UPDN = 1;
     MAX1CNT = 0XFFFF;               // maximo conteo de pulsos
 }
