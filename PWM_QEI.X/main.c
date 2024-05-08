@@ -36,7 +36,7 @@ int estado = 0;
 
 int main(void) {
     AD1PCFGL = 0xFFFB; // 1111 1111 1111 1011
-    TRISB = 0x000D; // 0000 0000 0000 1101
+    TRISB = 0x008D; // 0000 0000 1000 1101
     RPINR14bits.QEA1R = 2;
     RPINR14bits.QEB1R = 3; 
     RPOR0bits.RP1R = 3; // Salida UART1 por RP1
@@ -45,13 +45,24 @@ int main(void) {
     QEI_conf();
     UART_conf();
     conf_timer_1();
+    INTCON2 = 0x0000;
     IFS0bits.INT0IF = 0;
     IEC0bits.INT0IE = 1; 
     
     while(1){
-        adquirir();
-        duty = m*lectura;//0X0E66-lectura*0X000E;
-        P2DC1 = duty;
+        switch(estado){
+            case 0:
+                adquirir();
+                duty = m*lectura; //0X0E66-lectura*0X000E;
+                P2DC1 = duty;
+                break;
+            case 1:
+                adquirir();
+                duty = m*lectura; //0X0E66-lectura*0X000E;
+                P2DC1 = 0;
+                break;
+        }
+        
         /*
         transmitir();
         __delay_ms(4);     //Se lee el numero de pulsos por cada 10 milisegundos y se resetea el registro
@@ -142,7 +153,7 @@ void QEI_conf(){
     while(!U1STAbits.TRMT);
     U1TXREG = ':';// Transmit a end line
     while(!U1STAbits.TRMT);
-    velocidad = POS1CNT*0.5882 ; // pulsos contados en 10 ms [pulsos/10ms] * (1000ms/1seg)*(1rev/100pulsos)*(60seg/1min)= 60 
+    velocidad = POS1CNT*0.5882 ;
     int diez_miles = velocidad / 10000;
     diez_miles += 48;
     U1TXREG = diez_miles;
@@ -172,7 +183,7 @@ void QEI_conf(){
 
  void conf_timer_1() {
     //T2CONbits.T32 = 0; // coloca el registro en 32 bits
-    T1CONbits. TCKPS = 2; //Select input clock prescaler as 1:1
+    T1CONbits. TCKPS = 2; 
     T1CONbits. TGATE = 0; //Disable Gate Time Accumulation Mode
     T1CONbits.TCS = 0; //Select internal clock as the timer clock source
     PR1 = 0xE100; // definimos numero de pulsos para 5 segundo
@@ -189,15 +200,18 @@ void QEI_conf(){
 }
  
  void __attribute__((interrupt, auto_psv)) _INT0Interrupt(void){
-
-    if (estado = 0) {
-        P2TCONbits.PTEN = 1; // enable PWM timerbase
-        estado = 1; // el estado quieto pasa a movimiento
-    } else {
-        P2TCONbits.PTEN = 0; // enable PWM timerbase
-        estado = 0; // estado de movimiento pasa a quieto
-    }
-    IFS0bits.INT0IF = 0; // aclarar la bandera de interrupcion
+     
+     IFS0bits.INT0IF = 0; // aclarar la bandera de interrupcion
+     switch (estado){
+         case 0:
+             estado = 1;
+             break;
+         case 1:
+             estado = 0;
+             break;
+     }
+    
+    
  }
  
  
