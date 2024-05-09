@@ -22,8 +22,8 @@ void UART_conf();
 void conf_pwm();
 void QEI_conf();
 void transmitir();
-
 void conf_timer_1();
+
 void __attribute__((interrupt, auto_psv)) _T1Interrupt(void);
 
 void __attribute__((interrupt, auto_psv)) _INT0Interrupt(void);
