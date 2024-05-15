@@ -6,17 +6,13 @@
 
 #include "perifericos.h"
 #include "funciones.h"
+#include "i2c.h"
 
 int lectura = 0;
 double m = 2.0 * 1843.0 / 255.0;
 int duty = 0;
 unsigned int velocidad = 0;
 int estado = 0;
-
-void adquirir();
-void transmitir();
-void __attribute__((interrupt, auto_psv)) _INT0Interrupt(void);
-void __attribute__((interrupt, auto_psv)) _T1Interrupt(void);
 
 int main(void) {
 
