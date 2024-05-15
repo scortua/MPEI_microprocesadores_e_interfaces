@@ -1,15 +1,12 @@
 #include "perifericos.h"
 
 //----------------------------------------------------------INT---------------------------------------------------------------------
-
 void conf_INT() {
     INTCON2 = 0x0000;
     IFS0bits.INT0IF = 0;
     IEC0bits.INT0IE = 1;
 }
-
 //----------------------------------------------------------ADC--------------------------------------------------------------------
-
 void conf_ADC() {
     AD1CON1 = 0X0000;
     AD1CON2 = 0;
@@ -21,9 +18,7 @@ void conf_ADC() {
     AD1CHS0bits.CH0SA = 2;
     AD1CHS0bits.CH0SB = 2;
 }
-
 //----------------------------------------------------------UART-------------------------------------------------------------------
-
 void conf_UART() {
     RPOR0bits.RP1R = 3; // Salida UART1 por RP1
     U1MODEbits.STSEL = 0; // 1-Stop bit        
@@ -34,9 +29,7 @@ void conf_UART() {
     U1MODEbits.UARTEN = 1; // Enable UART
     U1STAbits.UTXEN = 1; // Enable Transmition UART    
 }
-
 //----------------------------------------------------------TIMER------------------------------------------------------------------
-
 void conf_timer_1() {
     //T2CONbits.T32 = 0; // coloca el registro en 32 bits
     T1CONbits. TCKPS = 2;
@@ -48,9 +41,7 @@ void conf_timer_1() {
     IFS0bits. T1IF = 0;
 
 }
-
 //----------------------------------------------------------PWM-------------------------------------------------------------------
-
 void conf_pwm() {
     P2TCONbits.PTCKPS = 0; // periodo base prescaler de tiempo T = Tcy  limite = 32768
     P2TCONbits.PTMOD = 0; // pwm opera en modo free running
@@ -64,9 +55,7 @@ void conf_pwm() {
     P2DC1 = 0x0000;
     P2TCONbits.PTEN = 1; // enable PWM timerbase
 }
-
 //----------------------------------------------------------QEI---------------------------------------------------------------------
-
 void conf_QEI() {
     RPINR14bits.QEA1R = 2;
     RPINR14bits.QEB1R = 3;
@@ -76,9 +65,4 @@ void conf_QEI() {
     QEI1CONbits.UPDN = 1;
     MAX1CNT = 0XFFFF; // maximo conteo de pulsos
 }
-
-//----------------------------------------------------------I2C---------------------------------------------------------------------
-
-void conf_I2C(){
-    
-}
+//-------------------------------------------------------------------------------------------------------------------------------

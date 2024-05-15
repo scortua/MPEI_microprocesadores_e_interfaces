@@ -1,7 +1,6 @@
 #include "funciones.h"
 
 //-------------------------------------------------------ADQUIRIR-------------------------------------------------------------------
-
 void adquirir() {
     AD1CON1bits.SAMP = 1;
     __delay_us(10);
@@ -10,9 +9,7 @@ void adquirir() {
     lectura = ADCBUF0 >> 2;
     lectura = lectura & (0x03FF);
 }
-
 //-------------------------------------------------------TRANSMITIR----------------------------------------------------------------
-
 void transmitir() {
     U1TXREG = 'L'; // Transmit a end line
     while (!U1STAbits.TRMT);
@@ -67,9 +64,7 @@ void transmitir() {
     U1TXREG = '\n'; // Transmit a end line
     while (!U1STAbits.TRMT);
 }
-
 //-----------------------------------------INTERRUPCION INT0-------------------------------------------------------------------
-
 void __attribute__((interrupt, auto_psv)) _INT0Interrupt(void) {
 
     IFS0bits.INT0IF = 0; // aclarar la bandera de interrupcion
@@ -82,11 +77,10 @@ void __attribute__((interrupt, auto_psv)) _INT0Interrupt(void) {
             break;
     }
 }
-
 //-----------------------------------------INTERRUPCION TIMER-------------------------------------------------------------------
-
 void __attribute__((interrupt, auto_psv)) _T1Interrupt(void) {
     transmitir(); // transmision de encoder por uart
     POS1CNT = 0; // se resetea el contador del qei
     IFS0bits. T1IF = 0; // aclarar la bandera de interrupcion
 }
+//-----------------------------------------INTERRUPCION TIMER-------------------------------------------------------------------

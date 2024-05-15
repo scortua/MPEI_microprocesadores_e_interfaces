@@ -1,6 +1,6 @@
 
 #ifndef FUNCIONES
-#define	FUNCIONES_H
+#define FUNCIONES_H
 
 #include "p33FJ128MC802.h"
 #define FCY 7372800

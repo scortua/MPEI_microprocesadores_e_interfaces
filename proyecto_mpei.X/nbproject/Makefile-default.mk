@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=main.c perifericos.c funciones.c i2c.c
+SOURCEFILES_QUOTED_IF_SPACED=main.c perifericos.c funciones.c i2c.c ssd1306_oled.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/perifericos.o ${OBJECTDIR}/funciones.o ${OBJECTDIR}/i2c.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/perifericos.o.d ${OBJECTDIR}/funciones.o.d ${OBJECTDIR}/i2c.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/perifericos.o ${OBJECTDIR}/funciones.o ${OBJECTDIR}/i2c.o ${OBJECTDIR}/ssd1306_oled.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/perifericos.o.d ${OBJECTDIR}/funciones.o.d ${OBJECTDIR}/i2c.o.d ${OBJECTDIR}/ssd1306_oled.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/perifericos.o ${OBJECTDIR}/funciones.o ${OBJECTDIR}/i2c.o
+OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/perifericos.o ${OBJECTDIR}/funciones.o ${OBJECTDIR}/i2c.o ${OBJECTDIR}/ssd1306_oled.o
 
 # Source Files
-SOURCEFILES=main.c perifericos.c funciones.c i2c.c
+SOURCEFILES=main.c perifericos.c funciones.c i2c.c ssd1306_oled.c
 
 
 
@@ -113,6 +113,12 @@ ${OBJECTDIR}/i2c.o: i2c.c  .generated_files/flags/default/16c4332b883ee7d3e77d04
 	@${RM} ${OBJECTDIR}/i2c.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  i2c.c  -o ${OBJECTDIR}/i2c.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/i2c.o.d"      -g -D__DEBUG     -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)     -mdfp="${DFP_DIR}/xc16"
 	
+${OBJECTDIR}/ssd1306_oled.o: ssd1306_oled.c  .generated_files/flags/default/2227e4cc25e8e013df72ebb7be0b8a7d08a73e1f .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/ssd1306_oled.o.d 
+	@${RM} ${OBJECTDIR}/ssd1306_oled.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ssd1306_oled.c  -o ${OBJECTDIR}/ssd1306_oled.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/ssd1306_oled.o.d"      -g -D__DEBUG     -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)     -mdfp="${DFP_DIR}/xc16"
+	
 else
 ${OBJECTDIR}/main.o: main.c  .generated_files/flags/default/72826d0c68899c9417ed8d2f9e516bca1481d30a .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}" 
@@ -137,6 +143,12 @@ ${OBJECTDIR}/i2c.o: i2c.c  .generated_files/flags/default/90d53c0cc7d587cb1e8ccf
 	@${RM} ${OBJECTDIR}/i2c.o.d 
 	@${RM} ${OBJECTDIR}/i2c.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  i2c.c  -o ${OBJECTDIR}/i2c.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/i2c.o.d"        -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)     -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/ssd1306_oled.o: ssd1306_oled.c  .generated_files/flags/default/16168265aa829a5b37d03bac819896584251c0ce .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/ssd1306_oled.o.d 
+	@${RM} ${OBJECTDIR}/ssd1306_oled.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ssd1306_oled.c  -o ${OBJECTDIR}/ssd1306_oled.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/ssd1306_oled.o.d"        -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)     -mdfp="${DFP_DIR}/xc16"
 	
 endif
 
