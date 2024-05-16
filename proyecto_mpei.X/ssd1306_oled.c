@@ -483,11 +483,11 @@ void OLED_Update(void)
     for(i=0; i<(SSD1306_LCDWIDTH*SSD1306_LCDHEIGHT/8); i++)
     {
         I2C_Start();
-        I2C_Write(SSD1306_ADDR << 1);
-        I2C_Write(0x40);
+        I2C_Tx(SSD1306_ADDR << 1);
+        I2C_Tx(0x40);
         for(x=0; x<16; x++)
         {
-            I2C_Write(buffer[i]);
+            I2C_Tx(buffer[i]);
             i++;
         }
         i--;
@@ -781,9 +781,9 @@ static void ssd1306_command(uint8_t command)
 {
     uint8_t control = 0x00;
     I2C_Start();
-    I2C_Write(SSD1306_ADDR << 1);
-    I2C_Write(control);
-    I2C_Write(command);
+    I2C_Tx(SSD1306_ADDR << 1);
+    I2C_Tx(control);
+    I2C_Tx(command);
     I2C_Stop();
 }
 
@@ -791,9 +791,9 @@ static void ssd1306_data(uint8_t value)
 {
     uint8_t control = 0x40;
     I2C_Start();
-    I2C_Write(SSD1306_ADDR << 1);
-    I2C_Write(control);
-    I2C_Write(value);
+    I2C_Tx(SSD1306_ADDR << 1);
+    I2C_Tx(control);
+    I2C_Tx(value);
     I2C_Stop();
 }
 

@@ -19,8 +19,8 @@ void I2C_Stop(void);
 void I2C_Restart(void);
 void I2C_Ack(void);
 void I2C_Nack(void);
-unsigned char I2C_Read(void);
-short I2C_Write(char data);
+unsigned char I2C_Rx(void);
+short I2C_Tx(char data);
 #endif
 
 #ifdef I2C_SLAVE_MODE

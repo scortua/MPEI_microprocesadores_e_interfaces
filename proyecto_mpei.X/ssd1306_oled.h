@@ -1,5 +1,8 @@
 #include <xc.h>
 #define _XTAL_FREQ 48000000
+#define FCY 7372800
+#include "xc.h"
+#include <libpic30.h>
 
 #include <stdint.h>
 #include <string.h>

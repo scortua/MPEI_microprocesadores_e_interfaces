@@ -7,7 +7,7 @@
 #include "perifericos.h"                        // libreria de configuracion para los perifericos
 #include "funciones.h"                          // libreria de funciones usadas en el programa
 #include "i2c.h"                                    // libreria de uso del i2c
-#include "ssd1306_oled.h"                   // libreria de uso para la pantalla OLED
+#include "ssd1306_oled.h"                 // libreria de uso para la pantalla OLED
 
 int lectura = 0;                                     // lectura para el analogo (potenciometro))
 double m = 2.0 * 1843.0 / 255.0;        // funcion para seleccionar el ciclo util de la señal para el motor dc
@@ -30,12 +30,12 @@ int main(void) {
     while (1) {
         switch (estado) {
             case 0:
-                adquirir(void);
+                adquirir();
                 duty = m*lectura; 
                 P1DC1 = duty;
                 break;
             case 1:
-                adquirir(void);
+                adquirir();
                 duty = m*lectura; 
                 P1DC1 = 0;
                 break;
