@@ -15,6 +15,7 @@ int duty = 0;                                        // definicion de ciclo util
 unsigned int velocidad = 0;                // variable de qei para leer el encoder e interpretar la velocidad del motor
 int estado = 0;                                    // estado de la interrupcion 1 -> detenido 0-> movimiento
 
+
 int main(void) {
 
     AD1PCFGL = 0xFFFB;                   // 1111 1111 1111 1011     1 no 0 si   se usa
@@ -29,13 +30,13 @@ int main(void) {
     while (1) {
         switch (estado) {
             case 0:
-                adquirir();
-                duty = m*lectura; //0X0E66-lectura*0X000E;
+                adquirir(void);
+                duty = m*lectura; 
                 P1DC1 = duty;
                 break;
             case 1:
-                adquirir();
-                duty = m*lectura; //0X0E66-lectura*0X000E;
+                adquirir(void);
+                duty = m*lectura; 
                 P1DC1 = 0;
                 break;
         }

@@ -1,7 +1,10 @@
 #include "funciones.h"
+#include "ssd1306_oled.h"
+#include "i2c.h"
+
 
 //-------------------------------------------------------ADQUIRIR-------------------------------------------------------------------
-void adquirir() {
+void adquirir(void) {
     AD1CON1bits.SAMP = 1;
     __delay_us(10);
     AD1CON1bits.SAMP = 0;
@@ -9,8 +12,19 @@ void adquirir() {
     lectura = ADCBUF0 >> 2;
     lectura = lectura & (0x03FF);
 }
+//--------------------------------------------------CONTROL PID------------------------------------------------------------------
+void PID(void){
+    //----------ecuacion de diferencias-----------
+    error = 0;
+    cv = cv1 + ((kp + kd/ts)*error) + ((-kp + ki*ts - 2*kd/ts)*error1) + ((kd/ts)*error2);
+    cv1 = cv;
+    error2 = error1;
+    error1 = error;
+    //----------saturacion de cv------------------
+    
+}
 //-------------------------------------------------------TRANSMITIR----------------------------------------------------------------
-void transmitir() {
+void transmitir(void) {
     U1TXREG = 'L'; // Transmit a end line
     while (!U1STAbits.TRMT);
     U1TXREG = 'a'; // Transmit a end line
@@ -37,7 +51,7 @@ void transmitir() {
     while (!U1STAbits.TRMT);
     U1TXREG = ':'; // Transmit a end line
     while (!U1STAbits.TRMT);
-    velocidad = POS1CNT * 0.5882;
+    velocidad = POS1CNT * 0.5882; // ?
     int diez_miles = velocidad / 10000;
     diez_miles += 48;
     U1TXREG = diez_miles;
