@@ -17,13 +17,12 @@ int estado = 0;                                    // estado de la interrupcion 
 
 int main(void) {
 
-    AD1PCFGL = 0xFFFB;                   // 1111 1111 1111 1011
-    TRISB = 0x038D;                         // 0000 0011 1000 1101
+    AD1PCFGL = 0xFFFB;                   // 1111 1111 1111 1011     1 no 0 si   se usa
+    TRISB = 0x838D;                         // 1000 0011 1000 1101      0 salida 1 entrada
     //------------------------inicializacion de configuracion-------------------------
     conf_ADC();
     conf_pwm();
     conf_QEI();
-    conf_UART();
     conf_timer_1();
     conf_INT();
     //------------------------Inicio del ciclo infinito---------------------------------
@@ -32,12 +31,12 @@ int main(void) {
             case 0:
                 adquirir();
                 duty = m*lectura; //0X0E66-lectura*0X000E;
-                P2DC1 = duty;
+                P1DC1 = duty;
                 break;
             case 1:
                 adquirir();
                 duty = m*lectura; //0X0E66-lectura*0X000E;
-                P2DC1 = 0;
+                P1DC1 = 0;
                 break;
         }
     }

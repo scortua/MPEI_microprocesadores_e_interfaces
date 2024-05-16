@@ -19,6 +19,7 @@ void conf_ADC() {
     AD1CHS0bits.CH0SB = 2;
 }
 //----------------------------------------------------------UART-------------------------------------------------------------------
+/*
 void conf_UART() {
     RPOR0bits.RP1R = 3; // Salida UART1 por RP1
     U1MODEbits.STSEL = 0; // 1-Stop bit        
@@ -29,6 +30,7 @@ void conf_UART() {
     U1MODEbits.UARTEN = 1; // Enable UART
     U1STAbits.UTXEN = 1; // Enable Transmition UART    
 }
+ */
 //----------------------------------------------------------TIMER------------------------------------------------------------------
 void conf_timer_1() {
     //T2CONbits.T32 = 0; // coloca el registro en 32 bits
@@ -43,17 +45,17 @@ void conf_timer_1() {
 }
 //----------------------------------------------------------PWM-------------------------------------------------------------------
 void conf_pwm() {
-    P2TCONbits.PTCKPS = 0; // periodo base prescaler de tiempo T = Tcy  limite = 32768
-    P2TCONbits.PTMOD = 0; // pwm opera en modo free running
-    P2TMRbits.PTMR = 0; // 
-    P2TPERbits.PTPER = 0x0733; // tiempo T =  0.5ms      1/2000 /2/7372800  = 1843
-    PWM2CON1bits.PMOD1 = 0; // habilita pin H y L para ser complementarios
-    PWM2CON1bits.PEN1H = 1; // se habilitan pin pwm H
-    PWM2CON1bits.PEN1L = 1; // se habilita pin pwm L
-    P2DTCON1bits.DTAPS = 0; // prescalador Tiempo muerto de pwm
-    P2DTCON1bits.DTA = 59; // tiempo muerto 16us
-    P2DC1 = 0x0000;
-    P2TCONbits.PTEN = 1; // enable PWM timerbase
+    P1TCONbits.PTCKPS = 0; // periodo base prescaler de tiempo T = Tcy  limite = 32768
+    P1TCONbits.PTMOD = 0; // pwm opera en modo free running
+    P1TMRbits.PTMR = 0; // 
+    P1TPERbits.PTPER = 0x0733; // tiempo T =  0.5ms      1/2000 /2/7372800  = 1843
+    PWM1CON1bits.PMOD1 = 1; // habilita pin H o L 
+    PWM1CON1bits.PEN1H = 0; // se deshabilitan pin pwm H
+    PWM1CON1bits.PEN1L = 1; // se habilita pin pwm L
+    P1DTCON1bits.DTAPS = 0; // prescalador Tiempo muerto de pwm
+    P1DTCON1bits.DTA = 59; // tiempo muerto 16us
+    P1DC1 = 0x0000;             // pwm dutty cycle register
+    P1TCONbits.PTEN = 1; // enable PWM timerbase
 }
 //----------------------------------------------------------QEI---------------------------------------------------------------------
 void conf_QEI() {

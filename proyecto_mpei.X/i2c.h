@@ -1,17 +1,19 @@
 #include <xc.h>
-#define _XTAL_FREQ 48000000
+#define FCY 7372800
 
-#define TRIS_SCL TRISBbits.TRISB8
-#define TRIS_SDA TRISBbits.TRISB9
+#define SCL TRISBbits.TRISB8
+#define SDA TRISBbits.TRISB9
 
-#define I2C_100KHZ 0x80
-#define I2C_400KHZ 0x00
+#define FSCL 400000
+#define FCLK FCY/2
+#define delay 0.00000011
+#define BRGI2C ((1/FSCL - delay)*FCLK)-1
 
 #define I2C_MASTER_MODE
 //#define I2C_SLAVE_MODE
 
 #ifdef I2C_MASTER_MODE
-void I2C_Init_Master(unsigned char sp_i2c);
+void I2C_Init_Master(void);
 void I2C_Start(void);
 void I2C_Stop(void);
 void I2C_Restart(void);

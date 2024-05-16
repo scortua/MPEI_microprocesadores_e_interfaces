@@ -1,73 +1,48 @@
 #include "i2c.h"
 
 #ifdef I2C_MASTER_MODE
-void I2C_Init_Master(unsigned char sp_i2c)
+void I2C_Init_Master(void)
 {
-    TRIS_SCL = 1;
-    TRIS_SDA = 1;
-    SSPSTAT = sp_i2c;
-	SSPCON1 = 0x28;
-    SSPCON2 = 0x00;
-    if(sp_i2c == I2C_100KHZ){
-        SSPADD = 119;
-    }
-    else if(sp_i2c == I2C_400KHZ){
-        SSPADD = 29;
-    }
+    I2C1BRG = BRGI2C;       // baudiaje para 400kHZ
+    I2C1CONbits.I2CEN = 1; // se habilita el I2C
 }
 
 void I2C_Start(void)
 {
-    SSPCON2bits.SEN = 1;
-    while(PIR1bits.SSPIF == 0);
-    PIR1bits.SSPIF = 0;
+    I2C1CONbits.SEN = 1;     // bit de inicio or start
 }
 
 void I2C_Stop(void)
 {
-    SSPCON2bits.PEN = 1;
-    while(PIR1bits.SSPIF == 0);
-    PIR1bits.SSPIF = 0;
+    I2C1CONbits.PEN = 1;    // bit de parada or stop
 }
 
 void I2C_Restart(void)
 {
-    SSPCON2bits.RSEN = 1;
-    while(PIR1bits.SSPIF == 0);
-    PIR1bits.SSPIF = 0;
+    
 }
 
 void I2C_Ack(void)
 {
-    SSPCON2bits.ACKDT = 0;
-	SSPCON2bits.ACKEN = 1;
-	while(PIR1bits.SSPIF == 0);
-    PIR1bits.SSPIF = 0;
+    I2C1CONbits.ACKEN = 1;   // activacion del bit ACK
+    I2C1CONbits.ACKDT = 0;  // ACK
 }
 
 void I2C_Nack(void)
 {
-    SSPCON2bits.ACKDT = 1;
-	SSPCON2bits.ACKEN = 1;
-	while(PIR1bits.SSPIF == 0);
-    PIR1bits.SSPIF = 0;
+    I2C1CONbits.ACKEN = 1;  // activacion del bit NACK
+    I2C1CONbits.ACKDT = 1;  // NACK
 }
 
-short I2C_Write(char data)
+short I2C_Tx(char data)
 {
-    SSPBUF = data;
-    while(PIR1bits.SSPIF == 0);
-    PIR1bits.SSPIF = 0;
-    short b_ok = SSPCON2bits.ACKSTAT;
-    return b_ok;
+    I2C1TRN = data;     // registro de envio de datos de 8 bits
 }
 
-unsigned char I2C_Read(void)
+unsigned char I2C_Rx(void)
 {
-    SSPCON2bits.RCEN = 1;
-    while(PIR1bits.SSPIF == 0);
-    PIR1bits.SSPIF = 0;
-    return SSPBUF;
+    I2CCONbits.RCEN = 1;    // activacion del bit de recepcion del esclavo
+    return I2C1RCV;              // registro de recepcion de datos de 8 bits
 }
 #endif
 
