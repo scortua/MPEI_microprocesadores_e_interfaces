@@ -14,53 +14,56 @@ void I2C_Init_Master(void)
 
 void I2C_Start(void)
 {
-    IFS1bits.MI2C1IF = 0;
     I2C1CONbits.SEN = 1;     // bit de inicio or start
-    while(IFS1bits.MI2C1IF == 0);
+    //while(IFS1bits.MI2C1IF == 0);
+    //IFS1bits.MI2C1IF = 0;
 }
 
 void I2C_Stop(void)
 {
-    IFS1bits.MI2C1IF = 0;
     I2C1CONbits.PEN = 1;    // bit de parada or stop
-    while(IFS1bits.MI2C1IF == 0);
+    //while(IFS1bits.MI2C1IF == 0);
+    //IFS1bits.MI2C1IF = 0;
 }
 
 void I2C_Restart(void)
 {
-    IFS1bits.MI2C1IF = 0;
     I2C1CONbits.RSEN = 1;
-    while(IFS1bits.MI2C1IF == 0);
+    //while(IFS1bits.MI2C1IF == 0);
+    //IFS1bits.MI2C1IF = 0;
 }
 
 void I2C_Ack(void)
 {
-    IFS1bits.MI2C1IF = 0;
     I2C1CONbits.ACKEN = 1;   // activacion del bit ACK
     I2C1CONbits.ACKDT = 0;  // ACK
-    while(IFS1bits.MI2C1IF == 0);
+    //while(IFS1bits.MI2C1IF == 0);
+    //IFS1bits.MI2C1IF = 0;
 }
 
 void I2C_Nack(void)
 {
-    IFS1bits.MI2C1IF = 0;
+
     I2C1CONbits.ACKEN = 1;  // activacion del bit NACK
     I2C1CONbits.ACKDT = 1;  // NACK
-    while(IFS1bits.MI2C1IF == 0);
+    //while(IFS1bits.MI2C1IF == 0);
+    //IFS1bits.MI2C1IF = 0;
 }
 
 short I2C_Tx(char data)
 {
-    IFS1bits.MI2C1IF = 0;
     I2C1TRN = data;     // registro de envio de datos de 8 bits
-    while(IFS1bits.MI2C1IF == 0);
+    //while(IFS1bits.MI2C1IF == 0);
+    //IFS1bits.MI2C1IF = 0;
+    short b_ok = I2C1STATbits.ACKSTAT;
+    return b_ok;
 }
 
 unsigned char I2C_Rx(void)
 {
-    IFS1bits.MI2C1IF = 0;
     I2CCONbits.RCEN = 1;    // activacion del bit de recepcion del esclavo
-    while(IFS1bits.MI2C1IF == 0);
+    //while(IFS1bits.MI2C1IF == 0);
+    //IFS1bits.MI2C1IF = 0;
     return I2C1RCV;              // registro de recepcion de datos de 8 bits
 }
 #endif

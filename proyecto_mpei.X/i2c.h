@@ -1,8 +1,8 @@
 #include <xc.h>
 #define FCY 7372800
 
-#define SCL TRISBbits.TRISB8
-#define SDA TRISBbits.TRISB9
+#define TRIS_SCL TRISBbits.TRISB8
+#define TRIS_SDA TRISBbits.TRISB9
 
 #define FSCL 400000
 #define FCLK FCY/2

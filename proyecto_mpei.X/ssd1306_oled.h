@@ -34,7 +34,7 @@ typedef struct _Current_Font_s
 #define INVERSE               2
 
 //#define SSD1306_ADDR        0x3D
-#define SSD1306_ADDR          0x3C
+#define SSD1306_ADDR          0x78
 
 #define SSD1306_128_64
 // #define SSD1306_128_32
