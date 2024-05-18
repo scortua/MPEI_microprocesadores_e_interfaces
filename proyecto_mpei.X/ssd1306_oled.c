@@ -1,5 +1,7 @@
 #include "ssd1306_oled.h"
 
+// Monda pa su jopo marikon
+
 const uint8_t FONT_1[] = {
     0x06, 0x08, 0x20, 0x5F,               // x_size, y_size, offset, number of char
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // sp
