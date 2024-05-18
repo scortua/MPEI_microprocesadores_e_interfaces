@@ -7,7 +7,7 @@
 #define FSCL 400000
 #define FCLK FCY/2
 #define delay 0.00000011
-#define BRGI2C ((1/FSCL - delay)*FCLK)-1
+#define BRGI2C 8
 
 #define I2C_MASTER_MODE
 //#define I2C_SLAVE_MODE
@@ -19,8 +19,10 @@ void I2C_Stop(void);
 void I2C_Restart(void);
 void I2C_Ack(void);
 void I2C_Nack(void);
+void IdleI2C(void);
+void ACKStatus(void);
 unsigned char I2C_Rx(void);
-short I2C_Tx(char data);
+void I2C_Tx(char data);
 #endif
 
 #ifdef I2C_SLAVE_MODE

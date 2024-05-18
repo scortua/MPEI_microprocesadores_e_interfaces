@@ -1,1 +1,0 @@
- -c -mcpu=$(MP_PROCESSOR_OPTION)        -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)     -mdfp="${DFP_DIR}/xc16"C:\Users\Scort\OneDrive\Documentos\santiago cortes tovar\ELECTRONICA\septimo semestre\MPEI\proyecto_mpei.X\ssd1306_oled.c

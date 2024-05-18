@@ -18,7 +18,7 @@ int estado = 0; // estado de la interrupcion 1 -> detenido 0-> movimiento
 int main(void) {
 
     AD1PCFGL = 0xFFFB; // 1111 1111 1111 1011     1 no 0 si   se usa
-    TRISB = 0x838D; // 1000 0011 1000 1101      0 salida 1 entrada
+    TRISB = 0x808D; // 1000 0000 1000 1101      0 salida 1 entrada
     IFS1bits.MI2C1IF = 0;
     //------------------------inicializacion de configuracion-------------------------
     conf_ADC();
