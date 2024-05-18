@@ -34,10 +34,10 @@ typedef struct _Current_Font_s
 #define INVERSE               2
 
 //#define SSD1306_ADDR        0x3D
-#define SSD1306_ADDR          0x78
+#define SSD1306_ADDR          0x3D
 
 #define SSD1306_128_64
-// #define SSD1306_128_32
+//#define SSD1306_128_32
 // #define SSD1306_96_16
 
 #if defined SSD1306_128_64
@@ -101,6 +101,7 @@ void OLED_Update(void);
 void OLED_SetContrast(uint8_t contrast);
 void OLED_ClearDisplay(void);
 void OLED_FillDisplay(void);
+void test_display(void);
 void OLED_DrawPixel(int16_t x, int16_t y, uint8_t color);
 void OLED_InvertDisplay(uint8_t value);
 void OLED_SetFont(const uint8_t *font);

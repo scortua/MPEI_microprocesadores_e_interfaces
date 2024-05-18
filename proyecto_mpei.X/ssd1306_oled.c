@@ -406,7 +406,7 @@ void OLED_Init(void)
     ssd1306_command(0x00);  //Horizontal Addressing Mode is Used
     ssd1306_command(SSD1306_SET_SEGMENT_REMAP| 0x01);
     ssd1306_command(SSD1306_COM_SCAN_DIR_DEC);
-  
+      
 #if defined SSD1306_128_32
     ssd1306_command(SSD1306_SET_COM_PINS);
     ssd1306_command(0x02);
@@ -462,6 +462,13 @@ void OLED_InvertFont(uint8_t invert_status)
     }
 }
 
+void test_display(void) {
+    OLED_ClearDisplay();
+    buffer[0] = 0xFF; // Encender los píxeles del primer byte
+    buffer[1] = 0xFF; // Encender los píxeles del segundo byte
+    OLED_Update(); // Actualizar la pantalla
+}
+
 void OLED_Update(void)
 {
     uint16_t i = 0;
@@ -484,16 +491,24 @@ void OLED_Update(void)
     {
         I2C_Start();
         I2C_Tx(SSD1306_ADDR << 1);
+        IdleI2C();
+        ACKStatus();
         I2C_Tx(0x40);
+        IdleI2C();
+        ACKStatus();
         for(x=0; x<16; x++)
         {
             I2C_Tx(buffer[i]);
+            IdleI2C();
+            ACKStatus();
             i++;
         }
         i--;
         I2C_Stop();
     }
 }
+
+
 
 void OLED_SetContrast(uint8_t contrast)
 {
@@ -524,7 +539,6 @@ void OLED_DrawPixel(int16_t x, int16_t y, uint8_t color)
 {
     if ((x < 0) || (x >= width()) || (y < 0) || (y >= height()))
         return;
-    
     switch (color)
     {
         case WHITE:   buffer[x+ (y/8)*SSD1306_LCDWIDTH] |=  (1 << (y&7)); break;
@@ -717,6 +731,7 @@ void OLED_Write( int16_t x, int16_t y, char value )
                             OLED_DrawPixel(x+cnt, y+(rowcnt*8)+b, true);
                         else
                             OLED_DrawPixel(x+cnt, y+(rowcnt*8)+b, false);
+                            
                     }
                     else
                     {
@@ -782,8 +797,14 @@ static void ssd1306_command(uint8_t command)
     uint8_t control = 0x00;
     I2C_Start();
     I2C_Tx(SSD1306_ADDR << 1);
+    IdleI2C();
+    ACKStatus();
     I2C_Tx(control);
+    IdleI2C();
+    ACKStatus();
     I2C_Tx(command);
+    IdleI2C();
+    ACKStatus();
     I2C_Stop();
 }
 
@@ -792,8 +813,14 @@ static void ssd1306_data(uint8_t value)
     uint8_t control = 0x40;
     I2C_Start();
     I2C_Tx(SSD1306_ADDR << 1);
+    IdleI2C();
+    ACKStatus();
     I2C_Tx(control);
+    IdleI2C();
+    ACKStatus();
     I2C_Tx(value);
+    IdleI2C();
+    ACKStatus();
     I2C_Stop();
 }
 
