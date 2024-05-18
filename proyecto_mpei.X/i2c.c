@@ -61,7 +61,7 @@ void I2C_Nack(void)
     //IFS1bits.MI2C1IF = 0;
 }
 
-void I2C_Tx(char data)
+void I2C_Write(char data)
 {
     I2C1TRN = data;     // registro de envio de datos de 8 bits
     while(I2C1STATbits.TBF);

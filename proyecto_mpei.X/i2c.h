@@ -1,3 +1,6 @@
+#ifndef I2C
+#define I2C_H
+
 #include <xc.h>
 #define FCY 7372800
 
@@ -22,7 +25,7 @@ void I2C_Nack(void);
 void IdleI2C(void);
 void ACKStatus(void);
 unsigned char I2C_Rx(void);
-void I2C_Tx(char data);
+void I2C_Write(char data);
 #endif
 
 #ifdef I2C_SLAVE_MODE
@@ -33,4 +36,5 @@ void I2C_Error_Data(void);
 short I2C_Write_Mode(void);
 short I2C_Read_Mode(void);
 short I2C_Error_Read(void);
+#endif
 #endif

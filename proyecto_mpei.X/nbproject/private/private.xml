@@ -5,10 +5,12 @@
         <group>
             <file>file:/D:/Documentos/ECI/7mo%20Semestre/MPEI/laboratorios/repositorio/proyecto_mpei.X/ssd1306_oled.h</file>
             <file>file:/D:/Documentos/ECI/7mo%20Semestre/MPEI/laboratorios/repositorio/proyecto_mpei.X/i2c.h</file>
-            <file>file:/D:/Documentos/ECI/7mo%20Semestre/MPEI/laboratorios/repositorio/proyecto_mpei.X/perifericos.c</file>
+            <file>file:/D:/Documentos/ECI/7mo%20Semestre/MPEI/laboratorios/repositorio/proyecto_mpei.X/funciones.h</file>
             <file>file:/D:/Documentos/ECI/7mo%20Semestre/MPEI/laboratorios/repositorio/proyecto_mpei.X/main.c</file>
+            <file>file:/D:/Documentos/ECI/7mo%20Semestre/MPEI/laboratorios/repositorio/proyecto_mpei.X/fonts.c</file>
             <file>file:/D:/Documentos/ECI/7mo%20Semestre/MPEI/laboratorios/repositorio/proyecto_mpei.X/i2c.c</file>
             <file>file:/D:/Documentos/ECI/7mo%20Semestre/MPEI/laboratorios/repositorio/proyecto_mpei.X/ssd1306_oled.c</file>
+            <file>file:/D:/Documentos/ECI/7mo%20Semestre/MPEI/laboratorios/repositorio/proyecto_mpei.X/fonts.h</file>
         </group>
     </open-files>
 </project-private>

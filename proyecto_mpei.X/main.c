@@ -7,7 +7,7 @@
 #include "perifericos.h"                        // libreria de configuracion para los perifericos
 #include "funciones.h"                          // libreria de funciones usadas en el programa
 #include "i2c.h"                                    // libreria de uso del i2c
-#include "ssd1306_oled.h"                 // libreria de uso para la pantalla OLED
+#include "ssd1306_oled.h"                // libreria de uso para la pantalla OLED
 
 int lectura = 0; // lectura para el analogo (potenciometro))
 double m = 2.0 * 1843.0 / 255.0; // funcion para seleccionar el ciclo util de la señal para el motor dc
@@ -27,7 +27,7 @@ int main(void) {
     conf_timer_1();
     I2C_Init_Master();
     conf_INT(); // configuracion de interrupcion
-    OLED_Init(); // inicializar pantalla OLED
+    SSD1306_Init(); // inicializar pantalla OLED
     //------------------------Inicio del ciclo infinito---------------------------------
     while (1) {
         switch (estado) {
@@ -42,11 +42,10 @@ int main(void) {
                 P1DC1 = 0;
                 break;
         }
-
-        OLED_SetFont(FONT_2);
-        OLED_Write_Text(16, 10, "Quiero pasar MPEI");
-        OLED_Update();
-        __delay_ms(1500);
+        
+        SSD1306_GotoXY(10,20);
+        SSD1306_Puts("Hola mundo", &FONT_1, WHITE);
+        SSD1306_UpdateScreen();
  
     }
     return 0;
