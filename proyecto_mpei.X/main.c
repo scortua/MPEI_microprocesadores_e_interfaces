@@ -4,13 +4,10 @@
 #pragma config FWDTEN = OFF         // Watchdog Timer Enable
 #pragma config ICS = PGD3               // Comm Channel Select
 
-#define SH1106_128_64
-
 #include "p33FJ128MC802.h"              // libreria del microcontrolador
 #include "perifericos.h"                        // libreria de configuracion para los perifericos
 #include "funciones.h"                          // libreria de funciones usadas en el programa
-#include "i2c.h"                                    // libreria de uso del i2c
-#include "display.h"
+#include "oled.h"                              // libreria de uso del i2c
 
 int lectura = 0; // lectura para el analogo (potenciometro))
 double m = 2.0 * 1843.0 / 255.0; // funcion para seleccionar el ciclo util de la se�al para el motor dc
@@ -30,6 +27,9 @@ int main(void) {
     conf_timer_1();
     I2C_Init_Master();
     conf_INT(); // configuracion de interrupcion
+    OLED_Begin();
+    OLED_ClearDisplay();
+    char texto[128];
     //------------------------Inicio del ciclo infinito---------------------------------
     while (1) {
         
@@ -46,6 +46,10 @@ int main(void) {
                 P1DC1 = 0;
                 break;
         }
+        sprintf(texto,"HOLA MUNDO");
+        OLED_DrawText(30,1,texto);
+        OLED_Display();
+        
     }
     return 0;
 }

@@ -7,7 +7,7 @@
       <itemPath>perifericos.h</itemPath>
       <itemPath>funciones.h</itemPath>
       <itemPath>i2c.h</itemPath>
-      <itemPath>display.h</itemPath>
+      <itemPath>oled.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -25,7 +25,7 @@
       <itemPath>perifericos.c</itemPath>
       <itemPath>funciones.c</itemPath>
       <itemPath>i2c.c</itemPath>
-      <itemPath>display.c</itemPath>
+      <itemPath>oled.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
