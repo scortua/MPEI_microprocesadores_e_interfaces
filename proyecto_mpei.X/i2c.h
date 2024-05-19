@@ -23,6 +23,7 @@ void IdleI2C(void);
 void ACKStatus(void);
 unsigned char I2C_Rx(void);
 void I2C_Tx(char data);
+void I2C_Transfer(uint8_t address,uint8_t control,uint8_t command);
 #endif
 
 #ifdef I2C_SLAVE_MODE

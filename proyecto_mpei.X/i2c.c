@@ -74,6 +74,22 @@ unsigned char I2C_Rx(void)
     //IFS1bits.MI2C1IF = 0;
     return I2C1RCV;              // registro de recepcion de datos de 8 bits
 }
+
+void I2C_Transfer(uint8_t addr,uint8_t ctr,uint8_t comm)
+{
+    I2C_Start();
+    I2C_Tx(addr << 1);
+    IdleI2C();
+    ACKStatus();
+    I2C_Tx(ctr);
+    IdleI2C();
+    ACKStatus();
+    I2C_Tx(comm);
+    IdleI2C();
+    ACKStatus();
+    I2C_Stop();
+}
+
 #endif
 
 #ifdef I2C_SLAVE_MODE

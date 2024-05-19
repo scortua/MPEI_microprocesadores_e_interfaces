@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=main.c perifericos.c funciones.c i2c.c ssd1306_oled.c
+SOURCEFILES_QUOTED_IF_SPACED=main.c perifericos.c funciones.c i2c.c display.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/perifericos.o ${OBJECTDIR}/funciones.o ${OBJECTDIR}/i2c.o ${OBJECTDIR}/ssd1306_oled.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/perifericos.o.d ${OBJECTDIR}/funciones.o.d ${OBJECTDIR}/i2c.o.d ${OBJECTDIR}/ssd1306_oled.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/perifericos.o ${OBJECTDIR}/funciones.o ${OBJECTDIR}/i2c.o ${OBJECTDIR}/display.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/perifericos.o.d ${OBJECTDIR}/funciones.o.d ${OBJECTDIR}/i2c.o.d ${OBJECTDIR}/display.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/perifericos.o ${OBJECTDIR}/funciones.o ${OBJECTDIR}/i2c.o ${OBJECTDIR}/ssd1306_oled.o
+OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/perifericos.o ${OBJECTDIR}/funciones.o ${OBJECTDIR}/i2c.o ${OBJECTDIR}/display.o
 
 # Source Files
-SOURCEFILES=main.c perifericos.c funciones.c i2c.c ssd1306_oled.c
+SOURCEFILES=main.c perifericos.c funciones.c i2c.c display.c
 
 
 
@@ -113,11 +113,11 @@ ${OBJECTDIR}/i2c.o: i2c.c  .generated_files/flags/default/1f5fae8ab456811aa91d05
 	@${RM} ${OBJECTDIR}/i2c.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  i2c.c  -o ${OBJECTDIR}/i2c.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/i2c.o.d"      -g -D__DEBUG     -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/ssd1306_oled.o: ssd1306_oled.c  .generated_files/flags/default/27c4d66c4253f299bac0c1b4bb00eaa6147d7f9d .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+${OBJECTDIR}/display.o: display.c  .generated_files/flags/default/84062b5666646a02ee89bd72d256e8066dd23ba4 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/ssd1306_oled.o.d 
-	@${RM} ${OBJECTDIR}/ssd1306_oled.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ssd1306_oled.c  -o ${OBJECTDIR}/ssd1306_oled.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/ssd1306_oled.o.d"      -g -D__DEBUG     -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	@${RM} ${OBJECTDIR}/display.o.d 
+	@${RM} ${OBJECTDIR}/display.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  display.c  -o ${OBJECTDIR}/display.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/display.o.d"      -g -D__DEBUG     -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
 else
 ${OBJECTDIR}/main.o: main.c  .generated_files/flags/default/ff4ea021a7fa626c61c4642f3d97b02d7598a325 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
@@ -144,11 +144,11 @@ ${OBJECTDIR}/i2c.o: i2c.c  .generated_files/flags/default/b5fc1d6b54e5ac9625c8ff
 	@${RM} ${OBJECTDIR}/i2c.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  i2c.c  -o ${OBJECTDIR}/i2c.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/i2c.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/ssd1306_oled.o: ssd1306_oled.c  .generated_files/flags/default/219a788cc8a5f93111224e0163124f5a0eb03a99 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+${OBJECTDIR}/display.o: display.c  .generated_files/flags/default/409c08996ade3cdaea26a7b5f810cfc5c5fc6f8f .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/ssd1306_oled.o.d 
-	@${RM} ${OBJECTDIR}/ssd1306_oled.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ssd1306_oled.c  -o ${OBJECTDIR}/ssd1306_oled.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/ssd1306_oled.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	@${RM} ${OBJECTDIR}/display.o.d 
+	@${RM} ${OBJECTDIR}/display.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  display.c  -o ${OBJECTDIR}/display.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/display.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
 endif
 
