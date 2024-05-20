@@ -133,20 +133,30 @@ void OLED_Begin()
   OLED_command(0x80);                                  // the suggested ratio 0x80
 
   OLED_command(OLED_SETMULTIPLEX);                  // 0xA8
+  OLED_command(0X3F);
   OLED_command(OLED_LCDHEIGHT - 1);
 
   OLED_command(OLED_SETDISPLAYOFFSET);              // 0xD3
-  OLED_command(0x0);                                   // no offset
+  OLED_command(0x00);                                   // no offset
   OLED_command(OLED_SETSTARTLINE | 0x0);            // line #0
   OLED_command(OLED_CHARGEPUMP);                    // 0x8D
   if (vccstate == OLED_EXTERNALVCC)
     { OLED_command(0x10); }
   else
     { OLED_command(0x14); }
+  
   OLED_command(OLED_MEMORYMODE);                    // 0x20
   OLED_command(0x00);                                  // 0x0 act like ks0108
   OLED_command(OLED_SEGREMAP | 0x1);
   OLED_command(OLED_COMSCANDEC);
+  
+  OLED_command(0XD9);
+  
+    if (vccstate == OLED_EXTERNALVCC)
+    { OLED_command(0x22); }
+  else
+    { OLED_command(0xF1); }
+ 
 
  #if defined SSD1306_128_32
   OLED_command(OLED_SETCOMPINS);                    // 0xDA
@@ -219,34 +229,36 @@ void OLED_Display(void)
     {   
       I2C_Start (); // inicia la comunicaci?n
       I2C_Tx (OLED_I2C_ADDRESS); //direccion I2C
+      /*
       IdleI2C();
       ACKStatus();
+       */
       I2C_Tx (0x00); //Control de direcci?n
-      IdleI2C();
-      ACKStatus();
+//      IdleI2C();
+//      ACKStatus();
       I2C_Tx(0XB0 + p);
-      IdleI2C();
-      ACKStatus();
+//      IdleI2C();
+//      ACKStatus();
       I2C_Tx(0X00);
-      IdleI2C();
-      ACKStatus();
+//      IdleI2C();
+//      ACKStatus();
       I2C_Tx(0X10);
-      IdleI2C();
-      ACKStatus();
+//      IdleI2C();
+//      ACKStatus();
       I2C_Stop (); //termina la comunicaci?n
       
       I2C_Start();
       I2C_Tx(OLED_I2C_ADDRESS);
-      IdleI2C();
-      ACKStatus();
+//      IdleI2C();
+//      ACKStatus();
       I2C_Tx(0X40);
-      IdleI2C();
-      ACKStatus();
+//      IdleI2C();
+//      ACKStatus();
       for(uint8_t column = 0; column < OLED_LCDWIDTH; column++)
       {
           I2C_Tx(OLED_buffer[index++]);
-          IdleI2C();
-          ACKStatus();
+//          IdleI2C();
+//          ACKStatus();
       }
       I2C_Stop();
    }
@@ -263,16 +275,16 @@ void OLED_ClearDisplay(void)
       OLED_command(Page[p-1]);//Set Page Address(12)    
       I2C_Start (); // inicia la comunicaci?n
       I2C_Tx (OLED_I2C_ADDRESS); //direccion I2C   
-      IdleI2C();
-      ACKStatus();
+//      IdleI2C();
+//      ACKStatus();
       I2C_Tx (0x40); //Control de direcci?n
-      IdleI2C();
-      ACKStatus();
+//      IdleI2C();
+//      ACKStatus();
       for (uint8_t i=0; i<=OLED_LCDWIDTH; ++i)//cuando se envia un dato la columa se recorre
       {     
          I2C_Tx (0x00); // --- blanco (0xFF)  
-         IdleI2C();
-         ACKStatus();
+//         IdleI2C();
+//         ACKStatus();
       }
       I2C_Stop (); //termina la comunicaci?n
    }
@@ -422,32 +434,32 @@ void OLED_On(bool _enable)
 {
     I2C_Start();
     I2C_Tx(OLED_I2C_ADDRESS);
-    IdleI2C();
-    ACKStatus();
+//    IdleI2C();
+//    ACKStatus();
     I2C_Tx(0X00);
     if(_enable)
     {
         I2C_Tx(0X8D);
-        IdleI2C();
-        ACKStatus();
+//        IdleI2C();
+//        ACKStatus();
         I2C_Tx(0X14);
-        IdleI2C();
-        ACKStatus();
+//        IdleI2C();
+//        ACKStatus();
         I2C_Tx(0XAF);
-        IdleI2C();
-        ACKStatus();
+//        IdleI2C();
+//        ACKStatus();
     }
     else
     {
         I2C_Tx(0XAE);
-        IdleI2C();
-        ACKStatus();
+//        IdleI2C();
+//        ACKStatus();
         I2C_Tx(0X8D);
-        IdleI2C();
-        ACKStatus();
+//        IdleI2C();
+//        ACKStatus();
         I2C_Tx(0X10);
-        IdleI2C();
-        ACKStatus();
+//        IdleI2C();
+//        ACKStatus();
     }
     I2C_Stop();
 }
