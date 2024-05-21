@@ -9,21 +9,20 @@ void I2C_Init_Master(void)
      TRIS_SDA = 1;
      */
     I2C1BRG = BRGI2C;       // baudiaje para 400kHZ
+    I2C1CONbits.DISSLW = 1;
     I2C1CONbits.I2CEN = 1; // se habilita el I2C
 }
 
 void I2C_Start(void)
 {
     I2C1CONbits.SEN = 1;     // bit de inicio or start
-    //while(IFS1bits.MI2C1IF == 0);
-    //IFS1bits.MI2C1IF = 0;
+    while(I2C1CONbits.SEN);
 }
 
 void I2C_Stop(void)
 {
     I2C1CONbits.PEN = 1;    // bit de parada or stop
-    //while(IFS1bits.MI2C1IF == 0);
-    //IFS1bits.MI2C1IF = 0;
+    while(I2C1CONbits.PEN);
 }
 
 void I2C_Restart(void)
@@ -41,6 +40,18 @@ void I2C_Ack(void)
     //IFS1bits.MI2C1IF = 0;
 }
 
+
+void IdleI2C(void)
+{
+    while(I2C1STATbits.TRSTAT);
+}
+
+
+void ACKStatus(void)
+{
+    while(!I2C1STATbits.ACKSTAT);
+}
+
 void I2C_Nack(void)
 {
 
@@ -50,13 +61,10 @@ void I2C_Nack(void)
     //IFS1bits.MI2C1IF = 0;
 }
 
-short I2C_Tx(char data)
+void I2C_Tx(char data)
 {
     I2C1TRN = data;     // registro de envio de datos de 8 bits
-    //while(IFS1bits.MI2C1IF == 0);
-    //IFS1bits.MI2C1IF = 0;
-    short b_ok = I2C1STATbits.ACKSTAT;
-    return b_ok;
+    while(I2C1STATbits.TBF);
 }
 
 unsigned char I2C_Rx(void)
@@ -66,6 +74,22 @@ unsigned char I2C_Rx(void)
     //IFS1bits.MI2C1IF = 0;
     return I2C1RCV;              // registro de recepcion de datos de 8 bits
 }
+
+void I2C_Transfer(uint8_t addr,uint8_t ctr,uint8_t comm)
+{
+    I2C_Start();
+    I2C_Tx(addr << 1);
+    IdleI2C();
+    ACKStatus();
+    I2C_Tx(ctr);
+    IdleI2C();
+    ACKStatus();
+    I2C_Tx(comm);
+    IdleI2C();
+    ACKStatus();
+    I2C_Stop();
+}
+
 #endif
 
 #ifdef I2C_SLAVE_MODE

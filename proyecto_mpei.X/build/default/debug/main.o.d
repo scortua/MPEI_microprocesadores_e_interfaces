@@ -1,5 +1,4 @@
-build/default/debug/main.o: main.c perifericos.h funciones.h i2c.h \
- ssd1306_oled.h
+build/default/debug/main.o: main.c perifericos.h funciones.h i2c.h oled.h
 
 perifericos.h:
 
@@ -7,4 +6,4 @@ funciones.h:
 
 i2c.h:
 
-ssd1306_oled.h:
+oled.h:
