@@ -31,6 +31,7 @@ void __attribute__((interrupt, auto_psv)) _INT0Interrupt(void) {
 //-----------------------------------------INTERRUPCION TIMER-------------------------------------------------------------------
 void __attribute__((interrupt, auto_psv)) _T1Interrupt(void) {
     //transmitir(); // transmision de encoder por uart
+    pv = POS1CNT * 5.8823 ;
     POS1CNT = 0; // se resetea el contador del qei
     IFS0bits. T1IF = 0; // aclarar la bandera de interrupcion
 }

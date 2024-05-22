@@ -10,10 +10,23 @@
 #include "oled.h"                              // libreria de uso del i2c
 
 int lectura = 0; // lectura para el analogo (potenciometro))
-double m = 2.0 * 1843.0 / 255.0; // funcion para seleccionar el ciclo util de la se�al para el motor dc
+double m = 3294.0 / 255.0; // funcion para seleccionar el ciclo util de la se�al para el motor dc
 int duty = 0; // definicion de ciclo util
-unsigned int velocidad = 0; // variable de qei para leer el encoder e interpretar la velocidad del motor
 int estado = 0; // estado de la interrupcion 1 -> detenido 0-> movimiento
+
+float pv = 0.0;
+float sp = 0.0;
+
+float cv = 0.0;
+float cv1 = 0.0;
+float error = 0.0;
+float error1 = 0.0;
+float error2 = 0.0;
+
+float kp = 1;
+float ki = 3;
+float kd = 0.01;
+float tm = 0.1;
 
 int main(void) {
 
@@ -33,22 +46,38 @@ int main(void) {
     //------------------------Inicio del ciclo infinito---------------------------------
     while (1) {
         
+        sp = lectura * m;
+        
+        error = sp - pv;
+        
+        cv = cv1 +(kp + kd/tm) * error + (-kp + ki * tm - 2 * kd/tm) * error1 + (kd/tm)*error2;
+        cv1 = cv;
+        error2 = error1;
+        error1 = error;
+        
+        if (cv > 5000.0){
+            cv = 5000;
+        }
+        if(cv < 1800){
+            cv = 1800;
+        }
+        
+        
         switch (estado) {
             case 0:
                 adquirir();
-                duty = m*lectura;
+                duty = cv * 0X0E66 / 5000;
                 P1DC1 = duty;
-//                P1DC1 = 0;
                 break;
             case 1:
                 adquirir();
-                duty = m*lectura;
                 P1DC1 = 0;
                 break;
         }
         sprintf(texto,"HOLA MUNDO");
         OLED_DrawText(30,1,texto);
         OLED_Display();
+        
         
     }
     return 0;

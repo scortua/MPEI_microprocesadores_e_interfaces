@@ -13,6 +13,7 @@ extern double m;
 extern int duty;
 extern unsigned int velocidad;
 extern int estado;
+extern float pv;
 
 //-------------------------------------------------------ADQUIRIR-------------------------------------------------------------------
 void adquirir();

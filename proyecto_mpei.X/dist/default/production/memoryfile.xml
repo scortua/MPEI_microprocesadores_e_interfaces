@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  <executable name="dist/default/debug/proyecto_mpei.X.debug.elf">
+  <executable name="dist/default/production/proyecto_mpei.X.production.elf">
     <memory name="data">
       <units>bytes</units>
       <length>16384</length>
-      <used>1170</used>
-      <free>15214</free>
+      <used>1090</used>
+      <free>15294</free>
     </memory>
     <memory name="program">
       <units>bytes</units>
       <length>131328</length>
-      <used>8406</used>
-      <free>122922</free>
+      <used>8409</used>
+      <free>122919</free>
     </memory>
   </executable>
 </project>

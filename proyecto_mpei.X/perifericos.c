@@ -34,10 +34,10 @@ void conf_UART() {
 //----------------------------------------------------------TIMER------------------------------------------------------------------
 void conf_timer_1() {
     //T2CONbits.T32 = 0; // coloca el registro en 32 bits
-    T1CONbits. TCKPS = 2;
+    T1CONbits. TCKPS = 1;
     T1CONbits. TGATE = 0; //Disable Gate Time Accumulation Mode
     T1CONbits.TCS = 0; //Select internal clock as the timer clock source
-    PR1 = 0xE100; // definimos numero de pulsos para 5 segundo
+    PR1 = 0XB400; // definimos numero de pulsos para 5 segundo
     T1CONbits. TON = 1; //Activate the timer module
     IEC0bits.T1IE = 1;
     IFS0bits. T1IF = 0;
