@@ -3,7 +3,7 @@
 uint8_t _i2caddr, _vccstate, x_pos, y_pos, text_size;
 bool wrap = true;
 
-const uint8_t Font[] = {
+static uint8_t font[] = {
 0x00, 0x00, 0x00, 0x00, 0x00,
 0x00, 0x00, 0x5F, 0x00, 0x00,
 0x00, 0x07, 0x00, 0x07, 0x00,
@@ -56,7 +56,8 @@ const uint8_t Font[] = {
 0x3E, 0x41, 0x51, 0x21, 0x5E,
 0x7F, 0x09, 0x19, 0x29, 0x46
 };
-const uint8_t Font2[] = {
+
+static uint8_t font2[] = {
 0x26, 0x49, 0x49, 0x49, 0x32,
 0x03, 0x01, 0x7F, 0x01, 0x03,
 0x3F, 0x40, 0x40, 0x40, 0x3F,
@@ -105,361 +106,128 @@ const uint8_t Font2[] = {
 
 static uint8_t OLED_buffer[OLED_LCDHEIGHT * (OLED_LCDWIDTH / 8)];
 
-void OLED_command(uint8_t c)
-{
-  uint8_t control = 0x00;   // Co = 0, D/C = 0
-  I2C_Transfer(OLED_I2C_ADDRESS, control, c);
-}
-
-uint8_t vccstate = OLED_SWITCHCAPVCC;
-uint8_t i2caddr = OLED_I2C_ADDRESS;
-
-void OLED_Begin()
-{
-  _vccstate = vccstate;
-  _i2caddr  = i2caddr;
-  __delay_ms(10);
-
-  #ifdef OLED_RST
-    output_low(OLED_RST);
-    output_drive(OLED_RST);
-    delay_ms(10);
-    output_high(OLED_RST);
-  #endif
-  
-  // Init sequence
-  OLED_command(OLED_DISPLAYOFF);                    // 0xAE
-  OLED_command(OLED_SETDISPLAYCLOCKDIV);            // 0xD5
-  OLED_command(0x80);                                  // the suggested ratio 0x80
-
-  OLED_command(OLED_SETMULTIPLEX);                  // 0xA8
-  OLED_command(0X3F);
-  OLED_command(OLED_LCDHEIGHT - 1);
-
-  OLED_command(OLED_SETDISPLAYOFFSET);              // 0xD3
-  OLED_command(0x00);                                   // no offset
-  OLED_command(OLED_SETSTARTLINE | 0x0);            // line #0
-  OLED_command(OLED_CHARGEPUMP);                    // 0x8D
-  if (vccstate == OLED_EXTERNALVCC)
-    { OLED_command(0x10); }
-  else
-    { OLED_command(0x14); }
-  
-  OLED_command(OLED_MEMORYMODE);                    // 0x20
-  OLED_command(0x00);                                  // 0x0 act like ks0108
-  OLED_command(OLED_SEGREMAP | 0x1);
-  OLED_command(OLED_COMSCANDEC);
-  
-  OLED_command(0XD9);
-  
-    if (vccstate == OLED_EXTERNALVCC)
-    { OLED_command(0x22); }
-  else
-    { OLED_command(0xF1); }
- 
-
- #if defined SSD1306_128_32
-  OLED_command(OLED_SETCOMPINS);                    // 0xDA
-  OLED_command(0x02);
-  OLED_command(OLED_SETCONTRAST);                   // 0x81
-  OLED_command(0x8F);
-
-#elif defined SSD1306_128_64 || defined SH1106_128_64
-  OLED_command(OLED_SETCOMPINS);                    // 0xDA
-  OLED_command(0x12);
-  OLED_command(OLED_SETCONTRAST);                   // 0x81
-  if (vccstate == OLED_EXTERNALVCC)
-    { OLED_command(0x9F); }
-  else
-    { OLED_command(0xCF); }
-
-#elif defined SSD1306_96_16
-  OLED_command(OLED_SETCOMPINS);                    // 0xDA
-  OLED_command(0x2);   //ada x12
-  OLED_command(OLED_SETCONTRAST);                   // 0x81
-  if (vccstate == OLED_EXTERNALVCC)
-    { OLED_command(0x10); }
-  else
-    { OLED_command(0xAF); }
-
-#endif
-
-  OLED_command(OLED_SETPRECHARGE);                  // 0xd9
-  if (vccstate == OLED_EXTERNALVCC)
-    { OLED_command(0x22); }
-  else
-    { OLED_command(0xF1); }
-  OLED_command(OLED_SETVCOMDETECT);                 // 0xDB
-  OLED_command(0x40);
-  OLED_command(OLED_DISPLAYALLON_RESUME);           // 0xA4
-  OLED_command(OLED_NORMALDISPLAY);                 // 0xA6
-
-  OLED_command(OLED_DEACTIVATE_SCROLL);
-
-  OLED_command(OLED_DISPLAYON);//--turn on oled panel
-  
-  // set cursor to (0, 0)
-  x_pos = 0;
-  y_pos = 0;
-  // set text size to 1
-  text_size = 1;
-  
-  OLED_Display();
-  
-  OLED_On(true);
-  
-  
-}
-
-void OLED_DrawPixel(uint8_t x, uint8_t y)
-{
-    bool color = true;
-  if ((x >= OLED_LCDWIDTH) || (y >= OLED_LCDHEIGHT))
-    return;
-  if (color)
-    OLED_buffer[x + (uint16_t)(y / 8) * OLED_LCDWIDTH] |=  (1 << (y & 7));
-  else
-    OLED_buffer[x + (uint16_t)(y / 8) * OLED_LCDWIDTH] &=  ~(1 << (y & 7));
-}
-
-void OLED_Display(void)
-{
-    uint16_t index = 0;
-    for (uint8_t p=0; p<(OLED_LCDHEIGHT + 7)/8; p++)
-    {   
-      I2C_Start (); // inicia la comunicaci?n
-      I2C_Tx (OLED_I2C_ADDRESS); //direccion I2C
-      /*
-      IdleI2C();
-      ACKStatus();
-       */
-      I2C_Tx (0x00); //Control de direcci?n
-//      IdleI2C();
-//      ACKStatus();
-      I2C_Tx(0XB0 + p);
-//      IdleI2C();
-//      ACKStatus();
-      I2C_Tx(0X00);
-//      IdleI2C();
-//      ACKStatus();
-      I2C_Tx(0X10);
-//      IdleI2C();
-//      ACKStatus();
-      I2C_Stop (); //termina la comunicaci?n
-      
-      I2C_Start();
-      I2C_Tx(OLED_I2C_ADDRESS);
-//      IdleI2C();
-//      ACKStatus();
-      I2C_Tx(0X40);
-//      IdleI2C();
-//      ACKStatus();
-      for(uint8_t column = 0; column < OLED_LCDWIDTH; column++)
-      {
-          I2C_Tx(OLED_buffer[index++]);
-//          IdleI2C();
-//          ACKStatus();
-      }
-      I2C_Stop();
-   }
-}
-
-void OLED_ClearDisplay(void)
-{
-    uint8_t Page[8]={0xB0,0xB1,0xB2,0xB3,0xB4,0xB5,0xB6,0xB7};
-    memset(OLED_buffer, 0, sizeof(OLED_buffer));
-   for (uint8_t p=1; p<=OLED_LCDHEIGHT/8; ++p)
-   {  
-      OLED_command(0x01);//Set Lower Column Address (1) 
-      OLED_command(0x10);//Set Higher Column Address (2) 
-      OLED_command(Page[p-1]);//Set Page Address(12)    
-      I2C_Start (); // inicia la comunicaci?n
-      I2C_Tx (OLED_I2C_ADDRESS); //direccion I2C   
-//      IdleI2C();
-//      ACKStatus();
-      I2C_Tx (0x40); //Control de direcci?n
-//      IdleI2C();
-//      ACKStatus();
-      for (uint8_t i=0; i<=OLED_LCDWIDTH; ++i)//cuando se envia un dato la columa se recorre
-      {     
-         I2C_Tx (0x00); // --- blanco (0xFF)  
-//         IdleI2C();
-//         ACKStatus();
-      }
-      I2C_Stop (); //termina la comunicaci?n
-   }
-}
-
-void OLED_DrawText(uint8_t x, uint8_t y, char *_text)
-{
-  uint8_t size = 1;
-  OLED_GotoXY(x, y);
-  OLED_TextSize(size);
-  while(*_text != '\0')
-    OLED_Print(*_text++);
-}
-
-void OLED_Print(uint8_t c)
-{
-  bool _color;
-  uint8_t i, j, line;
-  
-  if (c == ' ' && x_pos == 0 && wrap)
-    return;
-  if(c == '\a') {
-    x_pos = y_pos = 0;
-    return;
-  }
-  if( (c == '\b') && (x_pos >= text_size * 6) ) {
-    x_pos -= text_size * 6;
-    return;
-  }
-  if(c == '\r') {
-    x_pos = 0;
-    return;
-  }
-  if(c == '\n') {
-    y_pos += text_size * 8;
-    if((y_pos + text_size * 7) > OLED_LCDHEIGHT)
-      y_pos = 0;
-    return;
-  }
-
-  if((c < ' ') || (c > '~'))
-    c = '?';
-  
-  for(i = 0; i < 5; i++ ) {
-    if(c < 'S')
-      line = Font[(c - ' ') * 5 + i];
-    else
-      line = Font2[(c - 'S') * 5 + i];
-    
-    for(j = 0; j < 7; j++, line >>= 1) {
-      if(line & 0x01)
-        _color = true;
-      else
-        _color = false;
-      if(text_size == 1) OLED_DrawPixel(x_pos + i, y_pos + j);
-      else               OLED_FillRect(x_pos + (i * text_size), y_pos + (j * text_size), text_size, text_size);
-    }
-  }
-
-  OLED_FillRect(x_pos + (5 * text_size), y_pos, text_size, 7 * text_size);
-  
-  x_pos += text_size * 6;
-
-  if( x_pos > (OLED_LCDWIDTH + text_size * 6) )
-    x_pos = OLED_LCDWIDTH;
-
-  if (wrap && (x_pos + (text_size * 5)) > OLED_LCDWIDTH)
-  {
-    x_pos = 0;
-    y_pos += text_size * 8;
-    if((y_pos + text_size * 7) > OLED_LCDHEIGHT)
-      y_pos = 0;
-  }
-}
-
-void OLED_FillRect(uint8_t x, uint8_t y, uint8_t w, uint8_t h)
-{
-  int16_t _x = x;
-  for(int16_t i = _x; i < _x + w; i++){
-      OLED_DrawFastVLine(i, y, h);
-  }
-}
-
-void OLED_DrawFastVLine(uint8_t x, uint8_t y, uint8_t h)
-{
-  OLED_DrawLine(x, y, x, y + h - 1);
-}
-
-void OLED_DrawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1)
-{
-  bool color = true;
-  bool steep;
-  int8_t ystep;
-  uint8_t dx, dy;
-  int16_t err;
-  steep = abs(y1 - y0) > abs(x1 - x0);
-  if (steep) {
-    OLED_swap(x0, y0);
-    OLED_swap(x1, y1);
-  }
-  if (x0 > x1) {
-    OLED_swap(x0, x1);
-    OLED_swap(y0, y1);
-  }
-  dx = x1 - x0;
-  dy = abs(y1 - y0);
-
-  err = dx / 2;
-  if (y0 < y1)
-    ystep = 1;
-  else
-    ystep = -1;
-
-  for (; x0 <= x1; x0++) {
-    if (steep) {
-      if(color) OLED_DrawPixel(y0, x0);
-      else      OLED_DrawPixel(y0, x0);
-    }
-    else {
-      if(color) OLED_DrawPixel(x0, y0);
-      else      OLED_DrawPixel(x0, y0);
-    }
-    err -= dy;
-    if (err < 0) {
-      y0  += ystep;
-      err += dx;
-    }
-  }
-}
-
-void OLED_TextSize(uint8_t t_size)
-{
-  if(t_size < 1)
-    t_size = 1;
-  text_size = t_size;
-}
-
-void OLED_GotoXY(uint8_t x, uint8_t y)
-{
-  if((x >= OLED_LCDWIDTH) || (y >= OLED_LCDHEIGHT))
-    return;
-  x_pos = x;
-  y_pos = y;
-}
-
-void OLED_On(bool _enable)
-{
+static void sh1106_send_command(uint8_t command) {
     I2C_Start();
     I2C_Tx(OLED_I2C_ADDRESS);
-//    IdleI2C();
 //    ACKStatus();
     I2C_Tx(0X00);
-    if(_enable)
-    {
-        I2C_Tx(0X8D);
-//        IdleI2C();
-//        ACKStatus();
-        I2C_Tx(0X14);
-//        IdleI2C();
-//        ACKStatus();
-        I2C_Tx(0XAF);
-//        IdleI2C();
-//        ACKStatus();
-    }
-    else
-    {
-        I2C_Tx(0XAE);
-//        IdleI2C();
-//        ACKStatus();
-        I2C_Tx(0X8D);
-//        IdleI2C();
-//        ACKStatus();
-        I2C_Tx(0X10);
-//        IdleI2C();
-//        ACKStatus();
-    }
+//    ACKStatus();
+    I2C_Tx(command);
+//    ACKStatus();
     I2C_Stop();
+}
+
+// Enviar datos al SH1106
+static void sh1106_send_data(uint8_t data) {
+    I2C_Start();
+    I2C_Tx(OLED_I2C_ADDRESS);
+    ACKStatus();
+    I2C_Tx(0X40);
+    ACKStatus();
+    I2C_Tx(data);
+    ACKStatus();
+    I2C_Stop();
+}
+
+// Inicialización del SH1106
+void sh1106_init(void) {
+    sh1106_send_command(0xAE); // Display off
+    // Configuración del SH1106
+    sh1106_send_command(0xD5); // Set display clock divide ratio/oscillator frequency
+    sh1106_send_command(0x80);
+    sh1106_send_command(0xA8); // Set multiplex ratio
+    sh1106_send_command(0x3F);
+    sh1106_send_command(0xD3); // Set display offset
+    sh1106_send_command(0x00);
+    sh1106_send_command(0x40); // Set start line address
+    sh1106_send_command(0x8D); // Charge pump
+    sh1106_send_command(0x14);
+    sh1106_send_command(0x20); // Memory addressing mode
+    sh1106_send_command(0x00);
+    sh1106_send_command(0xA1); // Segment remap
+    sh1106_send_command(0xC8); // COM output scan direction
+    sh1106_send_command(0xDA); // Set COM pins hardware configuration
+    sh1106_send_command(0x12);
+    sh1106_send_command(0x81); // Contrast control
+    sh1106_send_command(0xCF);
+    sh1106_send_command(0xD9); // Pre-charge period
+    sh1106_send_command(0xF1);
+    sh1106_send_command(0xDB); // VCOMH deselect level
+    sh1106_send_command(0x40);
+    sh1106_send_command(0xA4); // Entire display ON
+    sh1106_send_command(0xA6); // Set normal display
+    sh1106_clear();
+    sh1106_send_command(0xAF); // Display ON
+}
+
+// Limpiar pantalla
+void sh1106_clear(void) {
+    memset(OLED_buffer, 0,(OLED_LCDWIDTH * OLED_LCDHEIGHT / 8));
+}
+
+// Actualizar pantalla
+void sh1106_display(void) {
+    for (uint8_t i = (OLED_LCDWIDTH/8)-1; i >= 0; i--) {
+        sh1106_send_command(0xB0 + i); // Set page address
+        sh1106_send_command(0x00); // Set lower column start address
+        sh1106_send_command(0x10); // Set higher column start address
+
+        for (uint16_t j = OLED_LCDWIDTH; j > 0; j--) {
+            I2C_Start();
+            I2C_Tx(OLED_I2C_ADDRESS);
+//            ACKStatus();
+            I2C_Tx(0X40);
+//            ACKStatus();
+            for(uint8_t x = 0; x < 16; x++){
+                I2C_Tx(OLED_buffer[i*OLED_LCDWIDTH + OLED_LCDWIDTH - j]);
+//                ACKStatus();
+                j--;
+            }
+            j++;
+            I2C_Stop();
+        }
+    }
+}
+
+// Dibujar pixel
+void sh1106_draw_pixel(uint16_t x, uint16_t y, uint16_t color) {
+    if ((x < 0) || (x >= OLED_LCDWIDTH) || (y < 0) || (y >= OLED_LCDHEIGHT)) return;
+
+    switch(color)
+    {
+        case WHITE: OLED_buffer[x+ (y/8)*OLED_LCDWIDTH] |= (1 << (y&7)); break;
+        case BLACK: OLED_buffer[x+ (y/8)*OLED_LCDWIDTH] &= ~(1 << (y&7)); break;
+        case INVERSE: OLED_buffer[x+ (y/8)*OLED_LCDWIDTH] ^= (1 << (y&7)); break;
+    }
+}
+
+// Dibujar carácter
+void sh1106_draw_char(uint8_t x, uint8_t y, char c) {
+    if (c < 32 || c > 126) return; // Caracteres fuera del rango imprimible
+
+    for (uint8_t i = 0; i < 5; i++) {
+        uint8_t line = font[c - 32];
+        for (uint8_t j = 0; j < 7; j++) {
+            if (line & 0x01) {
+                sh1106_draw_pixel(x + i, y + j, 1);
+            } else {
+                sh1106_draw_pixel(x + i, y + j, 0);
+            }
+            line >>= 1;
+        }
+    }
+
+    // Espacio entre caracteres
+    for (uint8_t j = 0; j < 7; j++) {
+        sh1106_draw_pixel(x + 5, y + j, 0);
+    }
+}
+
+// Dibujar cadena de texto
+void sh1106_draw_string(uint8_t x, uint8_t y, const char* str) {
+    while (*str) {
+        sh1106_draw_char(x, y, *str);
+        x += 6; // Ancho del carácter + 1
+        str++;
+    }
 }

@@ -16,6 +16,10 @@
 
 #define OLED_I2C_ADDRESS 0x7A //? 0x7A  direcci?n I2C
 
+#define BLACK 0
+#define WHITE 1
+#define INVERSE 2
+
 #if !defined SSD1306_128_32 && !defined SSD1306_96_16 && !defined SSD1306_128_64 && !defined SH1106_128_64
    #define OLED_LCDWIDTH            128
    #define OLED_LCDHEIGHT            64
@@ -75,19 +79,14 @@
 
 #define OLED_swap(a, b) { int16_t t = a; a = b; b = t; }
 
-void OLED_command(uint8_t c);
-void OLED_Begin();//inicializa la pantalla
-void OLED_DrawPixel(uint8_t x, uint8_t y);//cambia de color un pixel de la pantalla
-void OLED_Display(void);//muestra los datos en pantalla
-void OLED_ClearDisplay(void);//borra la pantalla
-void OLED_DrawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1);//crea una linea (x,y,ancho,alto,color 1/0)
-void OLED_DrawText(uint8_t x, uint8_t y, char *_text);//coloca un texto
-void OLED_TextSize(uint8_t t_size);//cambia el tama?o del texto
-void OLED_GotoXY(uint8_t x, uint8_t y);//posicion de inicion del texto
-void OLED_Print(uint8_t c);//imprime el texto
-void OLED_FillRect(uint8_t x, uint8_t y, uint8_t w, uint8_t h);//rellena el area de un color(x,y,ancho,alto,color 1/0)
-void OLED_DrawFastVLine(uint8_t x, uint8_t y, uint8_t h);//linea vertical (x,y,diametro,color)
-void OLED_On(bool enable);
+static void sh1106_send_command(uint8_t command);
+static void sh1106_send_data(uint8_t data);
+void sh1106_init(void);
+void sh1106_clear(void);
+void sh1106_display(void);
+void sh1106_draw_pixel(uint16_t x, uint16_t y, uint16_t color);
+void sh1106_draw_char(uint8_t x, uint8_t y, char c);
+void sh1106_draw_string(uint8_t x, uint8_t y, const char* str);
 
 
 #endif	/* OLED_H */

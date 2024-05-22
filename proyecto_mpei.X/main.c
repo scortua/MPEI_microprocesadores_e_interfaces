@@ -24,8 +24,8 @@ float error1 = 0.0;
 float error2 = 0.0;
 
 float kp = 1;
-float ki = 3;
-float kd = 0.01;
+float ki = 0.7;
+float kd = 0.5;
 float tm = 0.1;
 
 int main(void) {
@@ -40,9 +40,8 @@ int main(void) {
     conf_timer_1();
     I2C_Init_Master();
     conf_INT(); // configuracion de interrupcion
-    OLED_Begin();
-    OLED_ClearDisplay();
-    char texto[128];
+    sh1106_init();
+    sh1106_clear();
     //------------------------Inicio del ciclo infinito---------------------------------
     while (1) {
         
@@ -55,18 +54,23 @@ int main(void) {
         error2 = error1;
         error1 = error;
         
-        if (cv > 5000.0){
-            cv = 5000;
+        if (cv > 100000.0){
+            cv = 100000;
         }
-        if(cv < 1800){
-            cv = 1800;
+        if(cv < 30000.0){
+            cv = 30000;
         }
         
+//        sh1106_clear();
+//        sh1106_draw_pixel(10,10,WHITE);
+//        sh1106_display();
+//        
+//        __delay_ms(2000);
         
         switch (estado) {
             case 0:
                 adquirir();
-                duty = cv * 0X0E66 / 5000;
+                duty = cv * 0X0E66 / 100000;
                 P1DC1 = duty;
                 break;
             case 1:
@@ -74,9 +78,9 @@ int main(void) {
                 P1DC1 = 0;
                 break;
         }
-        sprintf(texto,"HOLA MUNDO");
-        OLED_DrawText(30,1,texto);
-        OLED_Display();
+
+        
+        
         
         
     }
