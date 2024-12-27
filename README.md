@@ -45,7 +45,7 @@ Este proyecto trata de esplicar la simplicidad del sistema de entorno de desarro
 #define FCY 7370000UL // reloj micro
 #include <libpic30.h>
 ```
-> Configuración del micro con su relog y libreria del delay
+> Configuración del micro con su reloj y libreria del delay
 
 ```c
 #define x LATXbits.LATA0 // X es A o B
