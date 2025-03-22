@@ -2,6 +2,10 @@
 # MICROPROCESADORES E INTERFACES
 
 ##### Este repositorio es un almacen que tiene guardado todos los proyectos y trabajos hechos para sistemas embebidos, porgramados en c, en el IDE de Microchip.
+by:  	Santiago Cortes Tovar
+	Juan Andres Abella Ballen
+ 	Tomás Felipe Montañez Piñeros
+
 
 <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/5c3d58c1-fcc4-4eae-a299-d507adad1c6b" alt="Microchip Logo" width="300"/> <img src="https://github.com/scortua/MPEI-LAS-AMIGAS/assets/140832465/c9450c8f-6ebb-4645-8056-1d28fd988173" alt="LogoEscuelaIng" width="300"/>
 
